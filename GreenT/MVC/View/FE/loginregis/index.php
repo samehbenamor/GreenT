@@ -3,17 +3,87 @@
     //require 'C:\xampp\htdocs\WebGreenT\GreenT\MVC\Controller\utilisateurController.php';
 	include_once '../../../Controller/utilisateurController.php';
 	require_once '../../../Model/utilisateur.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'\WebGreenT\GreenT\MVC\config.php';
     $error = "";
-
+	session_start();
     // create utilisateur
-    $utilisateur = null;
+    //$utilisateur = null;
 
     // create an instance of the controller
-    $utilisateurC = new utilisateurC();
+    //$utilisateurC = new utilisateurC();
 
-	
+	/*if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+		header("location: welcome.php");
+		exit;
+	}*/
 
-    if (
+	$pdo = config::getConnexion();
+
+	$email = $password = "";
+
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+		// Check if username is empty
+		if(empty(trim($_POST["email"]))){
+			$error = "Please enter email.";
+		} else{
+			$email = trim($_POST["email"]);
+		}
+
+	if(empty(trim($_POST["mdp"]))){
+        $error = "Please enter your password.";
+    } else{
+        $password = trim($_POST["mdp"]);
+    }
+
+	if(empty($error)){
+        // Prepare a select statement
+        $sql = "SELECT idu, email, mdp FROM utilisateur WHERE email = :email";
+
+		if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+			$param_email = trim($_POST["email"]);
+			// Attempt to execute the prepared statement
+            if($stmt->execute()){
+				// Check if username exists, if yes then verify password
+                if($stmt->rowCount() == 1){
+                    if($row = $stmt->fetch()){
+                        $id = $row["idu"];
+                        $email = $row["email"];
+                        $hashed_password = $row["mdp"];
+                        if($password == $hashed_password){
+                            // Password is correct, so start a new session
+                            session_start();
+							$_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $idu;
+                            $_SESSION["email"] = $email; 
+							header("location:../index.html");
+						} else{
+                            // Password is not valid, display a generic error message
+                            $error = "Invalid password.";
+                        }
+                    }
+				} else{
+                    // Username doesn't exist, display a generic error message
+                    $error = "Invalid email.";
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            unset($stmt);
+        }
+    }
+    
+    // Close connection
+    unset($pdo);
+}
+
+
+
+    /*if (
 		isset($_POST["email"]) && 
         isset($_POST["mdp"])
     ) {
@@ -23,23 +93,23 @@
         ) {
 			$email = $_POST["email"];
 			$mdp = $_POST["mdp"];
-			$sql="SELECT * from utilisateur where (email=$email) AND (mdp=$mdp)";
+			$sql="SELECT * from utilisateur where email=$email";
 			$db = config::getConnexion();
 			$query=$db->prepare($sql);
 			//$query->execute();
 
-			if (mysql_num_rows($query) != 0)
+			if (mysqli_num_rows($query) != 0)
   				{
 					$utilisateur = new utilisateur();
 					$utilisateur=$query->fetch();
-					session_start();
+					
 					$_SESSION["id"] = $utilisateur->$idu;
-					header('Location:../index.html.php');
+					header('Location:../index.html');
  				}
 			}
 				else 
 					$error = "Email or password wrong.";
-		}
+		}*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +144,7 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form" method="post" action="">
+				<form class="login100-form validate-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" >
 					<span class="login100-form-title">
 						Member Login
 					</span>

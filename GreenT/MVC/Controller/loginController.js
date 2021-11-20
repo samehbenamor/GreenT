@@ -24,7 +24,7 @@ function verif() {
         //return false;
     }
 
-    if (count == 0) {
+    /*if (count == 0) {
         alert("login successfull");
-    }  
+    }  */
 }
