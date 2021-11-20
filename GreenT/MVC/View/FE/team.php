@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Contact - Moderna Bootstrap Template</title>
+  <title>Team - Moderna Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -45,126 +45,163 @@
       <div class="logo">
         <!--<h1 class="text-light"><a href="index.html"><span>Moderna</span></a></h1>-->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+        <a href="index.php"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <a href="about.html">About</a>
-          <li><a href="team.html">Team</a></li>
-          <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="loginregis/index.php">Log in</a></li>
-              <li><a href="loginregis/register.php">Register</a></li>
-            </ul>
-          </li>
+      <ul>
+          <li><a href="index.php">Home</a></li>
+          <li><a ref="about.php">About</a></li>
+          <li><a class="active" href="team.php">Team</a></li>
+          <?php
+              if (isset($_SESSION['id'])) {
+                echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
+                  <ul>
+                    <li><a href="loginregis/index.php">Modifier votre profile</a></li>
+                    <li><a href="loginregis/logout.php">Log out</a></li>
+                  </ul>
+                </li>';
+              } else {
+                echo '<li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>';
+                 echo '<ul><li><a href="loginregis/index.php">Log in</a></li>';
+                  echo'<li><a href="loginregis/register.php">Register</a></li></ul></li>';
+                  
+                
+              }
+              ?>
           <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="services.html">Les formations</a></li>
-              <li><a href="portfolio.html">Les randonnées</a></li>
-              <li><a href="blog.html">Les campagnes de propretés</a></li>
-              <li><a href="payer/index.html">Payer une don</a></li>
+              <li><a href="services.php">Les formations</a></li>
+              <li><a href="portfolio.php">Les randonnées</a></li>
+              <li><a href="blog.php">Les campagnes de propretés</a></li>
+              <li><a href="payer/index.php">Payer une don</a></li>
             </ul>
           </li>
-          <li><a class="active" href="contact.html">Contact Us</a></li>
+          <li><a href="contact.php">Contact Us</a></li>
       </nav>
+
     </div>
   </header><!-- End Header -->
 
   <main id="main">
 
-    <!-- ======= Contact Section ======= -->
+    <!-- ======= Our Team Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Contact</h2>
+          <h2>Notre équipe</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Contact</li>
+            <li>Notre équipe</li>
           </ol>
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section><!-- End Our Team Section -->
 
-    <!-- ======= Contact Section ======= -->
-    <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <!-- ======= Team Section ======= -->
+    <section class="team" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
       <div class="container">
 
         <div class="row">
 
-          <div class="col-lg-6">
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="info-box">
-                  <i class="bx bx-map"></i>
-                  <h3>Our Address</h3>
-                  <p>1, 2 rue André Ampère - 2083 - Pôle Technologique - El Ghazala.
-                  </p>
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href="https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="bi bi-twitter"></i></a>
+                  <a href="https://www.facebook.com/ISawStarsInHerEyes/"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.instagram.com/nocturnalmelophile/"><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="info-box">
-                  <i class="bx bx-envelope"></i>
-                  <h3>Email Us</h3>
-                  <p>Defenders@esprit.tn</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="info-box">
-                  <i class="bx bx-phone-call"></i>
-                  <h3>Call Us</h3>
-                  <p>+216 25 019 058</p>
-                </div>
+              <div class="member-info">
+                <h4>Ben Amor Sameh</h4>
+                <span>Directeur général</span>
+                <p>J'ai commencé en tant qu'ingénieur web normal travaillant pour une association, j'avais l'impression de ne rien accomplir hors de la norme et avec l'escalade de l'état de la nature de notre pays en descente, j'ai décidé de quitter mon travail et de créer ce site dans l'espoir de regagner un peu de ce que nous avons fait.</p>
               </div>
             </div>
-
           </div>
 
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href="https://www.facebook.com/mohamedamine.chtioui.501"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.instagram.com/med_amine_chtioui/"><i class="bi bi-instagram"></i></a>
                 </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
               </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              <div class="member-info">
+                <h4>Mohamed Amine Chtioui</h4>
+                <span>Chef de produit</span>
+                <p>J'étais le collègue de Sameh lorsqu'il a annoncé qu'il allait quitter son emploi pour le bien de tous et lancer cet immense projet et je n'ai pu m'empêcher, en tant que naturaliste et militant de l'environnement, de lui emboîter le pas et de compiler avec lui cette œuvre d'art. </p>
               </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
+            </div>
           </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href="https://www.facebook.com/ahmed.zarrami.7 "><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.instagram.com/imene_zarrami/"><i class="bi bi-instagram"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Zarrami Imene</h4>
+                <span>CTO</span>
+                <p>Amoureuse de ce site que j'ai découvert par hasard à travers une annonce, j'ai immédiatement soumis mon CV pour en être l'administratrice. Le travail ici est très fluide et la communauté est très sympa, réactive et solidaire.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href="https://www.facebook.com/Rouaachibouub"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.instagram.com/rouaa_chiboub/"><i class="bi bi-instagram"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Chiboub Roua</h4>
+                <span>Comptable</span>
+                <p>Entendu par l'ami d'un ami, j'ai été heureux de savoir que Tunis a enfin un prétendant sérieux qui cherche à travailler sérieusement et à aller jusqu'au bout de ses actions. Contrairement aux associations environnementales dans lesquelles j'ai travaillé dans le passé, aucune n'a fait le travail plus que les Defenders.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-5.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href="https://www.facebook.com/dhia.hamdi.140"><i class="bi bi-facebook"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Hamdi Dhia</h4>
+                <span>Marketing</span>
+                <p>Cette organisation adhère à l'idée de s'entraider pour atteindre l'objectif principal. J'ai vraiment adhéré à cette idée et me suis donc engagé à travailler.</p>
+              </div>
+            </div>
+          </div>
+
+      
 
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
-
-    <!-- ======= Map Section ======= -->
-    <section class="map mt-2">
-      <div class="container-fluid p-0">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d102199.15096577669!2d10.2268926!3d36.8251459!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb7454c6ed51%3A0x683b3ab5565cd357!2sESPRIT!5e0!3m2!1sen!2stn!4v1636471129470!5m2!1sen!2stn" frameborder="1" style="border:0;" allowfullscreen=""></iframe>
-      </div>
-    </section><!-- End Map Section -->
+    </section><!-- End Team Section -->
 
   </main><!-- End #main -->
 
-   <!-- ======= Footer ======= -->
-   <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <!-- ======= Footer ======= -->
+  <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 
     <div class="footer-newsletter">
       <div class="container">

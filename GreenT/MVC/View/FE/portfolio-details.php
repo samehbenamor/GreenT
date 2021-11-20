@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Team - Moderna Bootstrap Template</title>
+  <title>Randonnée</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,155 +43,120 @@
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <!--<h1 class="text-light"><a href="index.html"><span>Moderna</span></a></h1>-->
+        <h1 class="text-light"><a href="index.html"><span>Moderna</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <a href="about.html">About</a>
-          <li><a class="active " href="team.html">Team</a></li>
-          <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="loginregis/index.html">Log in</a></li>
-              <li><a href="loginregis/register.html">Register</a></li>
-            </ul>
-          </li>
+      <ul>
+          <li><a  href="index.php">Home</a></li>
+          <a class="active href="about.php">About</a>
+          <li><a href="team.php">Team</a></li>
+          <?php
+              if (isset($_SESSION['id'])) {
+                echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
+                  <ul>
+                    <li><a href="loginregis/index.php">Modifier votre profile</a></li>
+                    <li><a href="loginregis/logout.php">Log out</a></li>
+                  </ul>
+                </li>';
+              } else {
+                echo '<li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>';
+                 echo '<ul><li><a href="loginregis/index.php">Log in</a></li>';
+                  echo'<li><a href="loginregis/register.php">Register</a></li></ul></li>';
+                  
+                
+              }
+              ?>
           <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="services.html">Les formations</a></li>
-              <li><a href="portfolio.html">Les randonnées</a></li>
-              <li><a href="blog.html">Les campagnes de propretés</a></li>
-              <li><a href="payer/index.html">Payer une don</a></li>
+              <li><a href="services.php">Les formations</a></li>
+              <li><a href="portfolio.php">Les randonnées</a></li>
+              <li><a href="blog.php">Les campagnes de propretés</a></li>
+              <li><a href="payer/index.php">Payer une don</a></li>
             </ul>
           </li>
-          <li><a href="contact.html">Contact Us</a></li>
-      </nav>
+          <li><a href="contact.php">Contact Us</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
 
   <main id="main">
 
-    <!-- ======= Our Team Section ======= -->
+    <!-- ======= Our Portfolio Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Notre équipe</h2>
+          <h2>Portfolio Details</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Notre équipe</li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li>Portfolio Details</li>
           </ol>
         </div>
 
       </div>
-    </section><!-- End Our Team Section -->
+    </section><!-- End Our Portfolio Section -->
 
-    <!-- ======= Team Section ======= -->
-    <section class="team" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
       <div class="container">
 
-        <div class="row">
+        <div class="row gy-4">
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="bi bi-twitter"></i></a>
-                  <a href="https://www.facebook.com/ISawStarsInHerEyes/"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/nocturnalmelophile/"><i class="bi bi-instagram"></i></a>
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/portfolio-1.jpg" alt="">
                 </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/portfolio-2.jpg" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/portfolio-3.jpg" alt="">
+                </div>
+
               </div>
-              <div class="member-info">
-                <h4>Ben Amor Sameh</h4>
-                <span>Directeur général</span>
-                <p>J'ai commencé en tant qu'ingénieur web normal travaillant pour une association, j'avais l'impression de ne rien accomplir hors de la norme et avec l'escalade de l'état de la nature de notre pays en descente, j'ai décidé de quitter mon travail et de créer ce site dans l'espoir de regagner un peu de ce que nous avons fait.</p>
-              </div>
+              <div class="swiper-pagination"></div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="https://www.facebook.com/mohamedamine.chtioui.501"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/med_amine_chtioui/"><i class="bi bi-instagram"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Mohamed Amine Chtioui</h4>
-                <span>Chef de produit</span>
-                <p>J'étais le collègue de Sameh lorsqu'il a annoncé qu'il allait quitter son emploi pour le bien de tous et lancer cet immense projet et je n'ai pu m'empêcher, en tant que naturaliste et militant de l'environnement, de lui emboîter le pas et de compiler avec lui cette œuvre d'art. </p>
-              </div>
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Category</strong>: Web design</li>
+                <li><strong>Client</strong>: ASU Company</li>
+                <li><strong>Project date</strong>: 01 March, 2020</li>
+                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h2>This is an example of portfolio detail</h2>
+              <p>
+                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+              </p>
             </div>
           </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="https://www.facebook.com/ahmed.zarrami.7 "><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/imene_zarrami/"><i class="bi bi-instagram"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Zarrami Imene</h4>
-                <span>CTO</span>
-                <p>Amoureuse de ce site que j'ai découvert par hasard à travers une annonce, j'ai immédiatement soumis mon CV pour en être l'administratrice. Le travail ici est très fluide et la communauté est très sympa, réactive et solidaire.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="https://www.facebook.com/Rouaachibouub"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/rouaa_chiboub/"><i class="bi bi-instagram"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Chiboub Roua</h4>
-                <span>Comptable</span>
-                <p>Entendu par l'ami d'un ami, j'ai été heureux de savoir que Tunis a enfin un prétendant sérieux qui cherche à travailler sérieusement et à aller jusqu'au bout de ses actions. Contrairement aux associations environnementales dans lesquelles j'ai travaillé dans le passé, aucune n'a fait le travail plus que les Defenders.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-5.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="https://www.facebook.com/dhia.hamdi.140"><i class="bi bi-facebook"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Hamdi Dhia</h4>
-                <span>Marketing</span>
-                <p>Cette organisation adhère à l'idée de s'entraider pour atteindre l'objectif principal. J'ai vraiment adhéré à cette idée et me suis donc engagé à travailler.</p>
-              </div>
-            </div>
-          </div>
-
-      
 
         </div>
 
       </div>
-    </section><!-- End Team Section -->
+    </section><!-- End Portfolio Details Section -->
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+   <!-- ======= Footer ======= -->
+   <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 
     <div class="footer-newsletter">
       <div class="container">

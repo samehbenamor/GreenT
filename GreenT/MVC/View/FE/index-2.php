@@ -43,31 +43,41 @@
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <h1 class="text-light"><a href="index.html"><span>Moderna</span></a></h1>
+        <h1 class="text-light"><a href="index.php"><span>Moderna</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="active " href="index.html">Home</a></li>
-          <a href="about.html">About</a>
-          <li><a href="team.html">Team</a></li>
-          <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="loginregis/index.php">Log in</a></li>
-              <li><a href="loginregis/register.php">Register</a></li>
-            </ul>
-          </li>
+      <ul>
+          <li><a  href="index.php">Home</a></li>
+          <a class="active href="about.php">About</a>
+          <li><a href="team.php">Team</a></li>
+          <?php
+              if (isset($_SESSION['id'])) {
+                echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
+                  <ul>
+                    <li><a href="loginregis/index.php">Modifier votre profile</a></li>
+                    <li><a href="loginregis/logout.php">Log out</a></li>
+                  </ul>
+                </li>';
+              } else {
+                echo '<li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>';
+                 echo '<ul><li><a href="loginregis/index.php">Log in</a></li>';
+                  echo'<li><a href="loginregis/register.php">Register</a></li></ul></li>';
+                  
+                
+              }
+              ?>
           <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="services.html">Les formations</a></li>
-              <li><a href="portfolio.html">Les randonnées</a></li>
-              <li><a href="blog.html">Les campagnes de propretés</a></li>
-              <li><a href="payer/index.html">Payer une don</a></li>
+              <li><a href="services.php">Les formations</a></li>
+              <li><a href="portfolio.php">Les randonnées</a></li>
+              <li><a href="blog.php">Les campagnes de propretés</a></li>
+              <li><a href="payer/index.php">Payer une don</a></li>
             </ul>
           </li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="contact.php">Contact Us</a></li>
       </nav>
 
     </div>

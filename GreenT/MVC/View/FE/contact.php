@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Randonnée</title>
+  <title>Contact - Moderna Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,111 +43,133 @@
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <h1 class="text-light"><a href="index.html"><span>Moderna</span></a></h1>
+        <!--<h1 class="text-light"><a href="index.html"><span>Moderna</span></a></h1>-->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        <a href="index.php"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="" href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a class="active" href="portfolio.html">Portfolio</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+      <ul>
+          <li><a  href="index.php">Home</a></li>
+          <a href="about.php">About</a>
+          <li><a href="team.php">Team</a></li>
+          <?php
+              if (isset($_SESSION['id'])) {
+                echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
+                  <ul>
+                    <li><a href="loginregis/index.php">Modifier votre profile</a></li>
+                    <li><a href="loginregis/logout.php">Log out</a></li>
+                  </ul>
+                </li>';
+              } else {
+                echo '<li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>';
+                 echo '<ul><li><a href="loginregis/index.php">Log in</a></li>';
+                  echo'<li><a href="loginregis/register.php">Register</a></li></ul></li>';
+                  
+                
+              }
+              ?>
+          <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
+              <li><a href="services.php">Les formations</a></li>
+              <li><a href="portfolio.php">Les randonnées</a></li>
+              <li><a href="blog.php">Les campagnes de propretés</a></li>
+              <li><a href="payer/index.php">Payer une don</a></li>
             </ul>
           </li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
+          <li><a class="active" href="contact.php">Contact Us</a></li>
+      </nav>
     </div>
   </header><!-- End Header -->
 
   <main id="main">
 
-    <!-- ======= Our Portfolio Section ======= -->
+    <!-- ======= Contact Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Portfolio Details</h2>
+          <h2>Contact</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li>Portfolio Details</li>
+            <li>Contact</li>
           </ol>
         </div>
 
       </div>
-    </section><!-- End Our Portfolio Section -->
+    </section><!-- End Contact Section -->
 
-    <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
+    <!-- ======= Contact Section ======= -->
+    <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
       <div class="container">
 
-        <div class="row gy-4">
+        <div class="row">
 
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
+          <div class="col-lg-6">
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-1.jpg" alt="">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="info-box">
+                  <i class="bx bx-map"></i>
+                  <h3>Our Address</h3>
+                  <p>1, 2 rue André Ampère - 2083 - Pôle Technologique - El Ghazala.
+                  </p>
                 </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-2.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-3.jpg" alt="">
-                </div>
-
               </div>
-              <div class="swiper-pagination"></div>
+              <div class="col-md-6">
+                <div class="info-box">
+                  <i class="bx bx-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p>Defenders@esprit.tn</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="info-box">
+                  <i class="bx bx-phone-call"></i>
+                  <h3>Call Us</h3>
+                  <p>+216 25 019 058</p>
+                </div>
+              </div>
             </div>
+
           </div>
 
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>Project information</h3>
-              <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-            </div>
+          <div class="col-lg-6">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
           </div>
 
         </div>
 
       </div>
-    </section><!-- End Portfolio Details Section -->
+    </section><!-- End Contact Section -->
+
+    <!-- ======= Map Section ======= -->
+    <section class="map mt-2">
+      <div class="container-fluid p-0">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d102199.15096577669!2d10.2268926!3d36.8251459!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb7454c6ed51%3A0x683b3ab5565cd357!2sESPRIT!5e0!3m2!1sen!2stn!4v1636471129470!5m2!1sen!2stn" frameborder="1" style="border:0;" allowfullscreen=""></iframe>
+      </div>
+    </section><!-- End Map Section -->
 
   </main><!-- End #main -->
 
