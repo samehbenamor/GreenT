@@ -7,10 +7,10 @@
     $error = "";
 	session_start();
     // create utilisateur
-    //$utilisateur = null;
+    $utilisateur = null;
 
     // create an instance of the controller
-    //$utilisateurC = new utilisateurC();
+    $utilisateurC = new utilisateurC();
 
 	/*if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		header("location: welcome.php");
@@ -38,7 +38,7 @@
 
 	if(empty($error)){
         // Prepare a select statement
-        $sql = "SELECT idu, email, mdp FROM utilisateur WHERE email = :email";
+        $sql = "SELECT idu, nom, prenom, email, mdp FROM utilisateur WHERE email = :email";
 
 		if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -51,14 +51,18 @@
                     if($row = $stmt->fetch()){
                         $id = $row["idu"];
                         $email = $row["email"];
+						$name = $row["nom"];
+						$prenom = $row["prenom"];
                         $hashed_password = $row["mdp"];
                         if($password == $hashed_password){
                             // Password is correct, so start a new session
                             session_start();
 							$_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $idu;
+                            $_SESSION["id"] = $id;
                             $_SESSION["email"] = $email; 
-							header("location:../index.html");
+							$_SESSION["name"] = $name;
+							$_SESSION["prenom"] = $prenom;
+;							header("location:../index.php");
 						} else{
                             // Password is not valid, display a generic error message
                             $error = "Invalid password.";
