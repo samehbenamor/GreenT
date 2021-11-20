@@ -28,8 +28,8 @@
 			}
 		}
 		function ajouterUtilisateur($utilisateur){
-			$sql="INSERT INTO utilisateur (nom, prenom, email, mdp, adresse, tel, ville, rolee) 
-			VALUES (:nom,:prenom,:email, :mdp,:adress, :tel, :ville, :rolee)";
+			$sql="INSERT INTO utilisateur (nom, prenom, email, mdp , adresse, tel, ville, rolee) 
+			VALUES (:nom,:prenom,:email, :mdp , :adresse, :tel, :ville, :rolee)";
 			$db = config::getConnexion();
 			try{
 				$query = $db->prepare($sql);
@@ -55,7 +55,7 @@
 				$query=$db->prepare($sql);
 				$query->execute();
 
-				$adherent=$query->fetch();
+				$utilisateur=$query->fetch();
 				return $utilisateur;
 			}
 			catch (Exception $e){
@@ -63,7 +63,7 @@
 			}
 		}
 		
-		function modifieradherent($utilisateur, $idu){
+		function modifierUtilisateur($utilisateur, $idu){
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(

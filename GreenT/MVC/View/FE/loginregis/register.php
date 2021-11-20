@@ -7,26 +7,36 @@
 
     // create utilisateur
     $utilisateur = null;
-
     // create an instance of the controller
     $utilisateurC = new utilisateurC();
+
+	
+
     if (
+		
 		isset($_POST["nom"]) &&		
         isset($_POST["prenom"]) &&
 		isset($_POST["email"]) && 
-        isset($_POST["pass"])
+        isset($_POST["mdp"])
     ) {
         if (
             !empty($_POST["nom"]) && 
 			!empty($_POST["prenom"]) &&
             !empty($_POST["email"]) && 
-			!empty($_POST["pass"])
+			!empty($_POST["mdp"])
         ) {
-            $utilisateur = new uilisateur(
+			//echo '<script type="text/javascript">alert("Hello! I am an alert box!!");</script>';
+            $utilisateur = new utilisateur(
 				$_POST['nom'],
                 $_POST['prenom'], 
 				$_POST['email'],
-                $_POST['mdp']
+                $_POST['mdp'],
+				$_POST['adresse'],
+				$_POST['tel'],
+				$_POST['ville'],
+				$_POST['rolee']
+				//kamil b9iyit les parametre mte3 constructeur fil class utilisateur 7at fil constructeur 8 parametre w lina ta3ti fih ken fi 4
+				//ok
             );
             $utilisateurC->ajouterUtilisateur($utilisateur);
             header('Location:index.php');
@@ -69,7 +79,7 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" method="post" action="">
 					<span class="login100-form-title">
 						Member Register
 					</span>
@@ -99,7 +109,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" id="pass" placeholder="Password">
+						<input class="input100" type="password" name="mdp" id="pass" placeholder="Password">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -107,7 +117,7 @@
 					</div>
 
                     <div class="wrap-input100 validate-input" data-validate = "Password confirmation is required">
-						<input class="input100" type="password" name="pass" id="repass" placeholder="Password confirmation">
+						<input class="input100" type="password" name="repass" id="repass" placeholder="Password confirmation">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -116,11 +126,13 @@
 					
 					<div class="text-center p-t-20">
 						<a id="err" class="txt2" style="color:red">
+						<?php echo $error; ?>
 						</a>
 						</div>
+						
 
 					<div class="container-login100-form-btn">
-						<button type="submit" onclick="verif();return false" class="login100-form-btn">Register</button>
+						<button type="submit" onclick="verif();" class="login100-form-btn">Register</button>
 					</div>
 
 

@@ -1,6 +1,6 @@
 <?php
 	class utilisateur{
-		private $id=null;
+		//private $idu=null;
 		private $nom=null;
 		private $prenom=null;
 		private $email=null;
@@ -10,8 +10,8 @@
         private $ville=null;
         private $rolee=null;
 		
-		function __construct($id, $nom, $prenom, $email, $mdp, $adresse, $tel, $ville, $rolee){
-			$this->id=$id;
+		function __construct(/*$idu, */$nom, $prenom, $email, $mdp, $adresse, $tel, $ville, $rolee){
+			//$this->idu=$idu;
 			$this->nom=$nom;
 			$this->prenom=$prenom;
             $this->email=$email;
@@ -21,9 +21,9 @@
 			$this->ville=$ville;
 			$this->rolee=$rolee;
 		}
-		function getId(){
-			return $this->id;
-		}
+		/*function getId(){
+			return $this->idu;
+		}*/
 		function getNom(){
 			return $this->nom;
 		}

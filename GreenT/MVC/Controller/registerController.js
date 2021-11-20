@@ -42,7 +42,7 @@ function verif() {
         //alert("Valider votre mail confirmation");
         //return false;
     }
-    if (count == 0) {
+    /*if (count == 0) {
         alert("Register successfull");
-    }    
+    }    */
 }

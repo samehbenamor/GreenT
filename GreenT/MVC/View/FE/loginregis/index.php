@@ -1,3 +1,46 @@
+<?php 
+    //require 'C:\xampp\htdocs\WebGreenT\GreenT\MVC\Model\utilisateur.php';
+    //require 'C:\xampp\htdocs\WebGreenT\GreenT\MVC\Controller\utilisateurController.php';
+	include_once '../../../Controller/utilisateurController.php';
+	require_once '../../../Model/utilisateur.php';
+    $error = "";
+
+    // create utilisateur
+    $utilisateur = null;
+
+    // create an instance of the controller
+    $utilisateurC = new utilisateurC();
+
+	
+
+    if (
+		isset($_POST["email"]) && 
+        isset($_POST["mdp"])
+    ) {
+        if (
+            !empty($_POST["email"]) && 
+			!empty($_POST["mdp"])
+        ) {
+			$email = $_POST["email"];
+			$mdp = $_POST["mdp"];
+			$sql="SELECT * from utilisateur where (email=$email) AND (mdp=$mdp)";
+			$db = config::getConnexion();
+			$query=$db->prepare($sql);
+			//$query->execute();
+
+			if (mysql_num_rows($query) != 0)
+  				{
+					$utilisateur = new utilisateur();
+					$utilisateur=$query->fetch();
+					session_start();
+					$_SESSION["id"] = $utilisateur->$idu;
+					header('Location:../index.html.php');
+ 				}
+			}
+				else 
+					$error = "Email or password wrong.";
+		}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +74,7 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" method="post" action="">
 					<span class="login100-form-title">
 						Member Login
 					</span>
@@ -45,7 +88,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" id="pass" placeholder="Mot de passe">
+						<input class="input100" type="password" name="mdp" id="pass" placeholder="Mot de passe">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -54,11 +97,12 @@
 
 					<div class="text-center p-t-20">
 						<a id="err" class="txt2" style="color:red">
+						<?php echo $error; ?>
 						</a>
 						</div>
 					
 					<div class="container-login100-form-btn">
-						<button type="submit" onclick="verif();return false" class="login100-form-btn">
+						<button type="submit" onclick="verif();" class="login100-form-btn">
 							Login
 						</button>
 					</div>
