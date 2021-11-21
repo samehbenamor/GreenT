@@ -60,7 +60,7 @@ session_start();
               if (isset($_SESSION['id'])) {
                 echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
                   <ul>
-                    <li><a href="loginregis/index.php">Modifier votre profile</a></li>
+                    <li><a href="loginregis/modifier.php">Modifier votre profile</a></li>
                     <li><a href="loginregis/logout.php">Log out</a></li>
                   </ul>
                 </li>';
