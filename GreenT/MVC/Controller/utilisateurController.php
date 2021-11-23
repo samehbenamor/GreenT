@@ -81,9 +81,9 @@
 				$query->execute([
 					'nom' => $utilisateur->getNom(),
 					'prenom' => $utilisateur->getPrenom(),
-					'adresse' => $utilisateur->getAdresse(),
 					'email' => $utilisateur->getEmail(),
                     'mdp' => $utilisateur->getMdp(),
+					'adresse' => $utilisateur->getAdresse(),
                     'tel' => $utilisateur->getTel(),
                     'ville' => $utilisateur->getVille(),
                     'rolee' => $utilisateur->getRole()

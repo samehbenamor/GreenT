@@ -38,7 +38,7 @@
 
 	if(empty($error)){
         // Prepare a select statement
-        $sql = "SELECT idu, nom, prenom, email, mdp  FROM utilisateur WHERE email = :email";
+        $sql = "SELECT idu, nom, prenom, email, mdp, rolee  FROM utilisateur WHERE email = :email";
 
 		if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -53,6 +53,7 @@
                         $email = $row["email"];
 						$name = $row["nom"];
 						$prenom = $row["prenom"];
+						$role = $row["rolee"];
                         $hashed_password = $row["mdp"];
                         if($password == $hashed_password){
                             // Password is correct, so start a new session
@@ -63,6 +64,7 @@
 							$_SESSION["name"] = $name;
 							$_SESSION["prenom"] = $prenom;
 							$_SESSION["mdp"] = $password;
+							$_SESSION["role"] = $role;
 ;							header("location:../index.php");
 						} else{
                             // Password is not valid, display a generic error message
