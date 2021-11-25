@@ -86,11 +86,12 @@
 					'adresse' => $utilisateur->getAdresse(),
                     'tel' => $utilisateur->getTel(),
                     'ville' => $utilisateur->getVille(),
-                    'rolee' => $utilisateur->getRole()
+                    'rolee' => $utilisateur->getRole(),
+					'idu' => $idu
 				]);	
 				echo $query->rowCount() . " records UPDATED successfully <br>";
 			} catch (PDOException $e) {
-				$e->getMessage();
+				var_dump($e->getMessage());
 			}
 		}
 

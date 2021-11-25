@@ -104,7 +104,7 @@
     </section><!-- End Our Formations Section -->
 
     <!-- ======= Formations Section ======= -->
-    <section class="Formations">
+    <!--<section class="Formations">
       <div class="container">
 
         <div class="row">
@@ -143,9 +143,9 @@
         </div>
 
       </div>
-    </section><!-- End Formations Section -->
+    </section>
 
-    <!-- ======= Why Us Section ======= -->
+    
     <section class="why-us section-bg" data-aos="fade-up" date-aos-delay="200">
       <div class="container">
 
@@ -173,9 +173,9 @@
         </div>
 
       </div>
-    </section><!-- End Why Us Section -->
+    </section>
 
-    <!-- ======= Formation Details Section ======= -->
+    
     <section class="Formation-details">
       <div class="container">
 
@@ -183,7 +183,7 @@
           <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-up">
             <div class="card">
               <div class="card-img">
-                <!--<img src="assets/img/Formation-details-1.jpg" alt="...">-->
+                
               </div>
               <div class="card-body">
                 <h5 class="card-title"><a href="#">Our Mission</a></h5>
@@ -195,7 +195,7 @@
           <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-up">
             <div class="card">
               <div class="card-img">
-               <!-- <img src="assets/img/Formation-details-2.jpg" alt="...">-->
+               
               </div>
               <div class="card-body">
                 <h5 class="card-title"><a href="#">Our Plan</a></h5>
@@ -208,7 +208,7 @@
           <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-up">
             <div class="card">
               <div class="card-img">
-                <!--<img src="assets/img/Formation-details-3.jpg" alt="...">-->
+                
               </div>
               <div class="card-body">
                 <h5 class="card-title"><a href="#">Our Vision</a></h5>
@@ -220,7 +220,7 @@
           <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-up">
             <div class="card">
               <div class="card-img">
-                <!--<img src="assets/img/Formation-details-4.jpg" alt="...">-->
+                
               </div>
               <div class="card-body">
                 <h5 class="card-title"><a href="#">Our Care</a></h5>
@@ -246,7 +246,7 @@
   
             <div class="col-lg-4 col-md-6 Formation-item filter-app">
               <div class="Formation-wrap">
-                <!--<img src="assets/img/Formation/imen.jpg" class="img-fluid" alt="">-->
+                
                 <div class="Formation-links">
                   <a href="assets/img/Formation/Formation-1.jpg" data-gallery="FormationGallery" class="Formation-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
                   <a href="Formation-details.html" title="More Details"><i class="bx bx-link"></i></a>
@@ -266,7 +266,7 @@
   
             <div class="col-lg-4 col-md-6 Formation-item filter-app">
               <div class="Formation-wrap">
-                <!--<img src="assets/img/Formation/Formation-3.jpg" class="img-fluid" alt="">-->
+                
                 <div class="Formation-links">
                   <a href="assets/img/Formation/Formation-3.jpg" data-gallery="FormationGallery" class="Formation-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
                   <a href="Formation-details.html" title="More Details"><i class="bx bx-link"></i></a>
@@ -276,7 +276,7 @@
   
             <div class="col-lg-4 col-md-6 Formation-item filter-card">
               <div class="Formation-wrap">
-                <!--<img src="assets/img/Formation/Formation-4.jpg" class="img-fluid" alt="">-->
+                
                 <div class="Formation-links">
                   <a href="assets/img/Formation/Formation-4.jpg" data-gallery="FormationGallery" class="Formation-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
                   <a href="Formation-details.html" title="More Details"><i class="bx bx-link"></i></a>
@@ -286,7 +286,7 @@
   
             <div class="col-lg-4 col-md-6 Formation-item filter-web">
               <div class="Formation-wrap">
-                <!--<img src="assets/img/Formation/Formation-5.jpg" class="img-fluid" alt="">-->
+               
                 <div class="Formation-links">
                   <a href="assets/img/Formation/Formation-5.jpg" data-gallery="FormationGallery" class="Formation-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
                   <a href="Formation-details.html" title="More Details"><i class="bx bx-link"></i></a>
@@ -316,7 +316,7 @@
   
             <div class="col-lg-4 col-md-6 Formation-item filter-card">
               <div class="Formation-wrap">
-                <!--<img src="assets/img/Formation/Formation-8.jpg" class="img-fluid" alt="">-->
+                
                 <div class="Formation-links">
                   <a href="assets/img/Formation/Formation-8.jpg" data-gallery="FormationGallery" class="Formation-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
                   <a href="Formation-details.html" title="More Details"><i class="bx bx-link"></i></a>
@@ -326,7 +326,7 @@
   
             <div class="col-lg-4 col-md-6 Formation-item filter-web">
               <div class="Formation-wrap">
-                <!--<img src="assets/img/Formation/Formation-9.jpg" class="img-fluid" alt="">-->
+                
                 <div class="Formation-links">
                   <a href="assets/img/Formation/Formation-9.jpg" data-gallery="FormationGallery" class="Formation-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
                   <a href="Formation-details.html" title="More Details"><i class="bx bx-link"></i></a>
@@ -343,56 +343,53 @@
 
     </div>
   
-    </section><!-- End Formation Details Section -->
+    </section>-->
 
     <!-- ======= Pricing Section ======= -->
     <section class="pricing section-bg" data-aos="fade-up">
       <div class="container">
 
         <div class="section-title">
-          <h2>Pricing</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <h2>Fixation des prix</h2>
+          <p>Nos formations se répartissent en 3 catégories, nous proposons des formations gratuites, amateurs et professionnelles portant sur les récifs coralliens, la pollution plastique, le sport et l'écologie, l'environnement et la migration et bien plus encore !</p>
         </div>
 
         <div class="row no-gutters">
 
           <div class="col-lg-4 box">
-            <h3>Free</h3>
-            <h4>$0<span>per month</span></h4>
+            <h3>Gratuit</h3>
+            <h4>0Dt<span>par mois</span></h4>
             <ul>
-              <li><i class="bx bx-check"></i> Quam adipiscing vitae proin</li>
-              <li><i class="bx bx-check"></i> Nec feugiat nisl pretium</li>
-              <li><i class="bx bx-check"></i> Nulla at volutpat diam uteera</li>
-              <li class="na"><i class="bx bx-x"></i> <span>Pharetra massa massa ultricies</span></li>
-              <li class="na"><i class="bx bx-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+              <li><i class="bx bx-check"></i> Accès à des sessions de formation gratuites </li>
+              <li class="na"><i class="bx bx-x"></i> <span>Accès aux sessions de formation payantes</span></li>
+              <li class="na"><i class="bx bx-x"></i> <span>Vidéos de meilleure qualité</span></li>
+              <li class="na"><i class="bx bx-x"></i> <span>La possibilité de télécharger les vidéos plutôt que de les regarder en streaming</span></li>
             </ul>
-            <a href="#" class="get-started-btn">Get Started</a>
+            <a href="formations.php" class="get-started-btn">Commencez</a>
           </div>
 
           <div class="col-lg-4 box featured">
-            <h3>Business</h3>
-            <h4>$29<span>per month</span></h4>
+            <h3>Amateur</h3>
+            <h4>12Dt<span>par mois</span></h4>
             <ul>
-              <li><i class="bx bx-check"></i> Quam adipiscing vitae proin</li>
-              <li><i class="bx bx-check"></i> Nec feugiat nisl pretium</li>
-              <li><i class="bx bx-check"></i> Nulla at volutpat diam uteera</li>
-              <li><i class="bx bx-check"></i> Pharetra massa massa ultricies</li>
-              <li><i class="bx bx-check"></i> Massa ultricies mi quis hendrerit</li>
+            <li><i class="bx bx-check"></i> Accès à des sessions de formation gratuites </li>
+              <li class="na"><li class="bx bx-check"></i> <span>Accès aux sessions de formation payantes</span></li>
+              <li class="na"><i class="bx bx-x"></i> <span>Vidéos de meilleure qualité</span></li>
+              <li class="na"><i class="bx bx-x"></i> <span>La possibilité de télécharger les vidéos plutôt que de les regarder en streaming</span></li>
             </ul>
-            <a href="#" class="get-started-btn">Get Started</a>
+            <a href="#" class="get-started-btn">Commencez</a>
           </div>
 
           <div class="col-lg-4 box">
-            <h3>Developer</h3>
-            <h4>$49<span>per month</span></h4>
+            <h3>Professionnel</h3>
+            <h4>20Dt<span>par mois</span></h4>
             <ul>
-              <li><i class="bx bx-check"></i> Quam adipiscing vitae proin</li>
-              <li><i class="bx bx-check"></i> Nec feugiat nisl pretium</li>
-              <li><i class="bx bx-check"></i> Nulla at volutpat diam uteera</li>
-              <li><i class="bx bx-check"></i> Pharetra massa massa ultricies</li>
-              <li><i class="bx bx-check"></i> Massa ultricies mi quis hendrerit</li>
+            <li><i class="bx bx-check"></i> Accès à des sessions de formation gratuites </li>
+              <li class="bx bx-check"></i> <span>Accès aux sessions de formation payantes</span></li>
+              <li class="bx bx-check"></i> <span>Vidéos de meilleure qualité</span></li>
+              <li class="bx bx-check"></i> <span>La possibilité de télécharger les vidéos plutôt que de les regarder en streaming</span></li>
             </ul>
-            <a href="#" class="get-started-btn">Get Started</a>
+            <a href="#" class="get-started-btn">Commencez</a>
           </div>
 
         </div>

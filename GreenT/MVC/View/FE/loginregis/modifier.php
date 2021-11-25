@@ -32,7 +32,7 @@
 				$_POST['adresse'],
 				$_POST['tel'],
 				$_POST['ville'],
-				1
+				0
             );
             $_SESSION["email"] = $_POST['email']; 
 			$_SESSION["name"] = $_POST['nom'];
@@ -41,6 +41,7 @@
             $_SESSION["adresse"] = $_POST['adresse'];
             $_SESSION["ville"] = $_POST['ville'];
             $_SESSION["tel"] = $_POST['tel'];
+			
             $utilisateurC->modifierUtilisateur($utilisateur, $_SESSION["id"]);
             //header('Location:../index.php');
         }

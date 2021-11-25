@@ -61,7 +61,7 @@ session_start();
                 echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
                   <ul>';
                     if ($_SESSION['role'] == 1) {
-                      echo '<li><a href="../BE/index.html">Dashboard</a></li>';
+                      echo '<li><a href="../BE/index.php">Dashboard</a></li>';
                     }
                     echo '<li><a href="loginregis/modifier.php">Modifier votre profile</a></li>
                     <li><a href="loginregis/logout.php">Log out</a></li>

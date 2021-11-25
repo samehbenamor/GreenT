@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -211,12 +212,17 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <?php
+            echo '<span class="d-none d-md-block dropdown-toggle ps-2">'.$_SESSION["name"].'</span>'
+            ?>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
+
+            <?php
+              echo'<h6>'.$_SESSION["name"].'</h6>';
+              ?>
               <span>Web Designer</span>
             </li>
             <li>
@@ -391,19 +397,20 @@
           <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="tables-data.php">
+              <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+            <a href="tables-data.php">
+              <i class="bi bi-circle"></i><span>Formations</span>
             </a>
           </li>
         </ul>
       </li><!-- End Tables Nav -->
-      <!--
+      
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -425,7 +432,7 @@
             </a>
           </li>
         </ul>
-      </li>-->
+      </li>
       <!--
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
