@@ -54,6 +54,7 @@
 						$name = $row["nom"];
 						$prenom = $row["prenom"];
 						$role = $row["rolee"];
+						$banned = $row["banned"];
                         $hashed_password = $row["mdp"];
                         if($password == $hashed_password){
                             // Password is correct, so start a new session
@@ -65,7 +66,8 @@
 							$_SESSION["prenom"] = $prenom;
 							$_SESSION["mdp"] = $password;
 							$_SESSION["role"] = $role;
-;							header("location:../index.php");
+							$_SESSION["banned"] = $banned;
+							header("location:../index.php");
 						} else{
                             // Password is not valid, display a generic error message
                             $error = "Invalid password.";

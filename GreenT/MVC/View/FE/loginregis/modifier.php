@@ -32,6 +32,7 @@
 				$_POST['adresse'],
 				$_POST['tel'],
 				$_POST['ville'],
+				0,
 				0
             );
             $_SESSION["email"] = $_POST['email']; 

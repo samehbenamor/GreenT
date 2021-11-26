@@ -523,9 +523,10 @@ $error = "";
                     <th scope="col">Numero de téléphone</th>
                     <th scope="col">Ville</th>
                     <th scope="col">Role</th>
+                    <th scope="col">Banned</th>
                     <th scope="col">Modify</th>
                     <th scope="col">Delete</th>
-
+                    <th scope="col">Ban</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -542,6 +543,7 @@ $error = "";
                     <td><?php echo $utilisateur['tel']; ?></td>
                     <td><?php echo $utilisateur['ville']; ?></td>
                     <td><?php echo $utilisateur['rolee']; ?></td>
+                    <td><?php echo $utilisateur['banned']; ?></td>
                     <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-folder"></i></button><div class="modal fade" id="verticalycentered" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <div class="modal-content">
@@ -620,6 +622,7 @@ $error = "";
               </div></td>
 
                    <td><a href="supprimerUser.php?idu=<?php echo $utilisateur['idu']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></button></td>
+                   <td><a href="banUser.php?idu=<?php echo $utilisateur['idu']; ?>" class="btn btn-warning" ><i class="bi bi-exclamation-octagon"></i></button></td>
                   </tr>
                   <?php
 				                }
