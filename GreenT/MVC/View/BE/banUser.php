@@ -6,6 +6,7 @@ $utilisateurC=new utilisateurC();
 $utilisateur = NULL;
 $idu = $_GET["idu"];
 $utilisateur = $utilisateurC->recupererUtilisateur($idu);
-$utilisateurC->BanUtilisateur($utilisateur, $idu);
-header('Location:tables-data.php');
+var_dump($utilisateur);
+//$utilisateurC->banUtilisateur($utilisateur, $idu);
+//header('Location:tables-data.php');
 ?>

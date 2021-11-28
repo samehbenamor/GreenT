@@ -103,16 +103,32 @@
 				$db = config::getConnexion();
 				$query = $db->prepare(
 					'UPDATE utilisateur SET 
-						banned= 1
+						nom= :nom, 
+						prenom= :prenom,
+                        email= :email,
+                        mdp= :mdp, 
+						adresse= :adresse, 
+                        tel= :tel, 
+                        ville= :ville, 
+                        rolee= :rolee,
+						banned= :banned
 					WHERE idu= :idu'
 				);
 				$query->execute([
+					'nom' => $utilisateur->getNom(),
+					'prenom' => $utilisateur->getPrenom(),
+					'email' => $utilisateur->getEmail(),
+                    'mdp' => $utilisateur->getMdp(),
+					'adresse' => $utilisateur->getAdresse(),
+                    'tel' => $utilisateur->getTel(),
+                    'ville' => $utilisateur->getVille(),
+                    'rolee' => $utilisateur->getRole(),
 					'banned' => $utilisateur->getBanned(),
 					'idu' => $idu
 				]);	
 				echo $query->rowCount() . " records UPDATED successfully <br>";
 			} catch (PDOException $e) {
-				var_dump($e->getMessage());
+				$e->getMessage();
 			}
 		}
 
