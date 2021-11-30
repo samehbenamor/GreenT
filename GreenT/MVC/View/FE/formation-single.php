@@ -1,5 +1,8 @@
 <?php 
-session_start();
+$titre = $_GET["titre"];
+$theme = $_GET["theme"];
+$etat = $_GET["etat"];
+$description = $_GET["descp"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +11,7 @@ session_start();
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Blog - Moderna Bootstrap Template</title>
+  <title>Formation</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,33 +31,26 @@ session_start();
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Moderna - v4.7.0
-  * Template URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center ">
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <!--<h1 class="text-light"><a href="index.html"><span>Moderna</span></a></h1>-->
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.php"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+        <div class="logo">
+
+          <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+        </div>
       </div>
 
       <nav id="navbar" class="navbar">
-      <ul>
-          <li><a  href="index.php">Home</a></li>
-          <a class="active href="about.php">About</a>
+        <ul>
+          <li><a href="index.php">Home</a></li>
+          <a href="about.php">About</a>
           <li><a href="team.php">Team</a></li>
           <?php
               if (isset($_SESSION['id'])) {
@@ -83,31 +79,30 @@ session_start();
               <li><a href="payer/index.php">Payer une don</a></li>
             </ul>
           </li>
-          <li><a href="contact.php">Contact Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
       </nav>
-
     </div>
-  </header><!-- End Header -->
+  </header>
+  </header>
 
   <main id="main">
 
-    <!-- ======= Blog Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Les campagnes de propreté</h2>
+          <h2>Nos Randonnées :  </h2>
 
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Les campagnes de propreté</li>
+            <li><a>Formation</a></li>
           </ol>
         </div>
 
       </div>
-    </section><!-- End Blog Section -->
+    </section>
 
-    <!-- ======= Blog Section ======= -->
+    <!-- ======= Blog Single Section ======= -->
     <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
 
@@ -115,130 +110,181 @@ session_start();
 
           <div class="col-lg-8 entries">
 
-            <article class="entry">
+            <article class="entry entry-single">
 
               <div class="entry-img">
-                <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
-              </div>
-
-              <h2 class="entry-title">Nous organisons une campagne de propreté à Bizerte dimanche à 10h</a>
-              </h2>
-
-              <div class="entry-meta">
-                <ul>
-                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">Chiboub Roua</a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">9 Aout, 2020</time></a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Commentaires</a></li>
-                </ul>
-              </div>
-
-              <div class="entry-content">
-                <p>
-                  Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
-                  Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde soluta. Est cum et quod quos aut ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.
-                </p>
-                <div class="read-more">
-                  <a href="blog-single.html">Read More</a>
-                </div>
-              </div>
-
-            </article><!-- End blog entry -->
-
-            <article class="entry">
-
-              <div class="entry-img">
-                <img src="assets/img/blog/blog-2.jpg" alt="" class="img-fluid">
+                <img src="#" alt="" class="img-fluid">
               </div>
 
               <h2 class="entry-title">
-                <a href="blog-single.html">Nisi magni odit consequatur autem nulla dolorem</a>
+                <a href="formation-single.php"><?php echo $titre; ?></a>
               </h2>
 
               <div class="entry-meta">
                 <ul>
-                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">John Doe</a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
+                <?php
+                if ($etat == 1) {
+                    echo '<li class="d-flex align-items-center"><i class="bi bi-check-lg"></i> <a href="blog-single.html">Free</a></li>';
+                } else if ($etat == 2) {
+                    echo '<li class="d-flex align-items-center"><i class="bi bi-check2-circle"></i> <a href="blog-single.html">Amateur</a></li>';
+                } else if ($etat == 3) {
+                    echo '<li class="d-flex align-items-center"><i class="bi bi-check2-square"></i> <a href="blog-single.html">Professional</a></li>';
+                }
+                ?>
+                <li class="d-flex align-items-center"><i class="bi bi-chat-left"></i> <a href="blog-single.html"><?php echo $theme; ?></a></li>
                 </ul>
               </div>
 
               <div class="entry-content">
                 <p>
-                  </p>
-                <div class="read-more">
-                  <a href="blog-single.html">Read More</a>
-                </div>
-              </div>
-
-            </article><!-- End blog entry -->
-
-            <article class="entry">
-
-              <div class="entry-img">
-                <img src="assets/img/blog/blog-3.jpg" alt="" class="img-fluid">
-              </div>
-
-              <h2 class="entry-title">
-                <a href="blog-single.html">Possimus soluta ut id suscipit ea ut. In quo quia et soluta libero sit sint.</a>
-              </h2>
-
-              <div class="entry-meta">
-                <ul>
-                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">John Doe</a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
-                </ul>
-              </div>
-
-              <div class="entry-content">
-                <p>
-                  Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.
-                  Doloremque est saepe laborum aut. Ipsa cupiditate ex harum at recusandae nesciunt. Ut dolores velit.
+                 <?php echo $description; ?>
                 </p>
-                <div class="read-more">
-                  <a href="blog-single.html">Read More</a>
-                </div>
-              </div>
 
+              
+                <img src="#" class="img-fluid" alt="">
+
+             
+
+    
             </article><!-- End blog entry -->
 
-            <article class="entry">
-
-              <div class="entry-img">
-                <img src="assets/img/blog/blog-4.jpg" alt="" class="img-fluid">
-              </div>
-
-              <h2 class="entry-title">
-                <a href="blog-single.html">Non rem rerum nam cum quo minus. Dolor distinctio deleniti explicabo eius exercitationem.</a>
-              </h2>
-
-              <div class="entry-meta">
-                <ul>
-                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">John Doe</a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
-                </ul>
-              </div>
-
-              <div class="entry-content">
+            <div class="blog-author d-flex align-items-center">
+              <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
+              <div>
+                <h4>Jane Smith</h4>
+                <div class="social-links">
+                  <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+                  <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+                  <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+                </div>
                 <p>
-                  Aspernatur rerum perferendis et sint. Voluptates cupiditate voluptas atque quae. Rem veritatis rerum enim et autem. Saepe atque cum eligendi eaque iste omnis a qui.
-                  Quia sed sunt. Ea asperiores expedita et et delectus voluptates rerum. Id saepe ut itaque quod qui voluptas nobis porro rerum. Quam quia nesciunt qui aut est non omnis. Inventore occaecati et quaerat magni itaque nam voluptas. Voluptatem ducimus sint id earum ut nesciunt sed corrupti nemo.
+                  Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
                 </p>
-                <div class="read-more">
-                  <a href="blog-single.html">Read More</a>
+              </div>
+            </div><!-- End blog author bio -->
+
+            <div class="blog-comments">
+
+              <h4 class="comments-count">8 Comments</h4>
+
+              <div id="comment-1" class="comment">
+                <div class="d-flex">
+                  <div class="comment-img"><img src="assets/img/blog/comments-1.jpg" alt=""></div>
+                  <div>
+                    <h5><a href="">Georgia Reader</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                    <time datetime="2020-01-01">01 Jan, 2020</time>
+                    <p>
+                      Et rerum totam nisi. Molestiae vel quam dolorum vel voluptatem et et. Est ad aut sapiente quis molestiae est qui cum soluta.
+                      Vero aut rerum vel. Rerum quos laboriosam placeat ex qui. Sint qui facilis et.
+                    </p>
+                  </div>
                 </div>
+              </div><!-- End comment #1 -->
+
+              <div id="comment-2" class="comment">
+                <div class="d-flex">
+                  <div class="comment-img"><img src="assets/img/blog/comments-2.jpg" alt=""></div>
+                  <div>
+                    <h5><a href="">Aron Alvarado</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                    <time datetime="2020-01-01">01 Jan, 2020</time>
+                    <p>
+                      Ipsam tempora sequi voluptatem quis sapiente non. Autem itaque eveniet saepe. Officiis illo ut beatae.
+                    </p>
+                  </div>
+                </div>
+
+                <div id="comment-reply-1" class="comment comment-reply">
+                  <div class="d-flex">
+                    <div class="comment-img"><img src="assets/img/blog/comments-3.jpg" alt=""></div>
+                    <div>
+                      <h5><a href="">Lynda Small</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                      <time datetime="2020-01-01">01 Jan, 2020</time>
+                      <p>
+                        Enim ipsa eum fugiat fuga repellat. Commodi quo quo dicta. Est ullam aspernatur ut vitae quia mollitia id non. Qui ad quas nostrum rerum sed necessitatibus aut est. Eum officiis sed repellat maxime vero nisi natus. Amet nesciunt nesciunt qui illum omnis est et dolor recusandae.
+
+                        Recusandae sit ad aut impedit et. Ipsa labore dolor impedit et natus in porro aut. Magnam qui cum. Illo similique occaecati nihil modi eligendi. Pariatur distinctio labore omnis incidunt et illum. Expedita et dignissimos distinctio laborum minima fugiat.
+
+                        Libero corporis qui. Nam illo odio beatae enim ducimus. Harum reiciendis error dolorum non autem quisquam vero rerum neque.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div id="comment-reply-2" class="comment comment-reply">
+                    <div class="d-flex">
+                      <div class="comment-img"><img src="assets/img/blog/comments-4.jpg" alt=""></div>
+                      <div>
+                        <h5><a href="">Sianna Ramsay</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                        <time datetime="2020-01-01">01 Jan, 2020</time>
+                        <p>
+                          Et dignissimos impedit nulla et quo distinctio ex nemo. Omnis quia dolores cupiditate et. Ut unde qui eligendi sapiente omnis ullam. Placeat porro est commodi est officiis voluptas repellat quisquam possimus. Perferendis id consectetur necessitatibus.
+                        </p>
+                      </div>
+                    </div>
+
+                  </div><!-- End comment reply #2-->
+
+                </div><!-- End comment reply #1-->
+
+              </div><!-- End comment #2-->
+
+              <div id="comment-3" class="comment">
+                <div class="d-flex">
+                  <div class="comment-img"><img src="assets/img/blog/comments-5.jpg" alt=""></div>
+                  <div>
+                    <h5><a href="">Nolan Davidson</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                    <time datetime="2020-01-01">01 Jan, 2020</time>
+                    <p>
+                      Distinctio nesciunt rerum reprehenderit sed. Iste omnis eius repellendus quia nihil ut accusantium tempore. Nesciunt expedita id dolor exercitationem aspernatur aut quam ut. Voluptatem est accusamus iste at.
+                      Non aut et et esse qui sit modi neque. Exercitationem et eos aspernatur. Ea est consequuntur officia beatae ea aut eos soluta. Non qui dolorum voluptatibus et optio veniam. Quam officia sit nostrum dolorem.
+                    </p>
+                  </div>
+                </div>
+
+              </div><!-- End comment #3 -->
+
+              <div id="comment-4" class="comment">
+                <div class="d-flex">
+                  <div class="comment-img"><img src="assets/img/blog/comments-6.jpg" alt=""></div>
+                  <div>
+                    <h5><a href="">Kay Duggan</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                    <time datetime="2020-01-01">01 Jan, 2020</time>
+                    <p>
+                      Dolorem atque aut. Omnis doloremque blanditiis quia eum porro quis ut velit tempore. Cumque sed quia ut maxime. Est ad aut cum. Ut exercitationem non in fugiat.
+                    </p>
+                  </div>
+                </div>
+
+              </div><!-- End comment #4 -->
+
+              <div class="reply-form">
+                <h4>Leave a Reply</h4>
+                <p>Your email address will not be published. Required fields are marked * </p>
+                <form action="">
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                      <input name="name" type="text" class="form-control" placeholder="Your Name*">
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <input name="email" type="text" class="form-control" placeholder="Your Email*">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col form-group">
+                      <input name="website" type="text" class="form-control" placeholder="Your Website">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col form-group">
+                      <textarea name="comment" class="form-control" placeholder="Your Comment*"></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Post Comment</button>
+
+                </form>
+
               </div>
 
-            </article><!-- End blog entry -->
-
-            <div class="blog-pagination">
-              <ul class="justify-content-center">
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-              </ul>
-            </div>
+            </div><!-- End blog comments -->
 
           </div><!-- End blog entries list -->
 
@@ -257,48 +303,16 @@ session_start();
               <h3 class="sidebar-title">Villes</h3>
               <div class="sidebar-item categories">
                 <ul>
-                  <li><a href="#">Tunis <span>(25)</span></a></li>
-                  <li><a href="#">Bizerte <span>(12)</span></a></li>
-                  <li><a href="#">Sfax <span>(5)</span></a></li>
-                  <li><a href="#">Nabeul <span>(22)</span></a></li>
-                  <li><a href="#">Sousse <span>(8)</span></a></li>
-                  <li><a href="#">Monastir <span>(14)</span></a></li>
+                  <li><a href="#">Tunis <span></span></a></li>
+                  <li><a href="#">Bizerte <span></span></a></li>
+                  <li><a href="#">Sfax <span></span></a></li>
+                  <li><a href="#">Nabeul <span></span></a></li>
+                  <li><a href="#">Sousse <span></span></a></li>
+                  <li><a href="#">Monastir <span></span></a></li>
                 </ul>
               </div><!-- End sidebar categories-->
 
-              <h3 class="sidebar-title">Recent Posts</h3>
-              <div class="sidebar-item recent-posts">
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-1.jpg" alt="">
-                  <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-2.jpg" alt="">
-                  <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-3.jpg" alt="">
-                  <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-4.jpg" alt="">
-                  <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-5.jpg" alt="">
-                  <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-              </div><!-- End sidebar recent posts-->
+             
 
               <h3 class="sidebar-title">Tags</h3>
               <div class="sidebar-item tags">
@@ -324,7 +338,7 @@ session_start();
         </div>
 
       </div>
-    </section><!-- End Blog Section -->
+    </section><!-- End Blog Single Section -->
 
   </main><!-- End #main -->
 

@@ -28,8 +28,8 @@
 			}
 		}
 		function ajouterUtilisateur($utilisateur){
-			$sql="INSERT INTO utilisateur (nom, prenom, email, mdp , adresse, tel, ville, rolee) 
-			VALUES (:nom,:prenom,:email, :mdp , :adresse, :tel, :ville, :rolee)";
+			$sql="INSERT INTO utilisateur (nom, prenom, email, mdp , adresse, tel, ville, rolee, banned) 
+			VALUES (:nom,:prenom,:email, :mdp , :adresse, :tel, :ville, :rolee, :banned)";
 			$db = config::getConnexion();
 			try{
 				$query = $db->prepare($sql);
@@ -41,7 +41,8 @@
 					'adresse' => $utilisateur->getAdresse(),
                     'tel' => $utilisateur->getTel(),
                     'ville' => $utilisateur->getVille(),
-                    'rolee' => $utilisateur->getRole()
+                    'rolee' => $utilisateur->getRole(),
+					'banned' => $utilisateur->getBanned()
 				]);			
 			}
 			catch (Exception $e){
@@ -75,7 +76,8 @@
 						adresse= :adresse, 
                         tel= :tel, 
                         ville= :ville, 
-                        rolee= :rolee
+                        rolee= :rolee,
+						banned= :banned
 					WHERE idu= :idu'
 				);
 				$query->execute([
@@ -87,6 +89,7 @@
                     'tel' => $utilisateur->getTel(),
                     'ville' => $utilisateur->getVille(),
                     'rolee' => $utilisateur->getRole(),
+					'banned' => $utilisateur->getBanned(),
 					'idu' => $idu
 				]);	
 				echo $query->rowCount() . " records UPDATED successfully <br>";
@@ -94,6 +97,42 @@
 				var_dump($e->getMessage());
 			}
 		}
+
+		function banUtilisateur($utilisateur, $idu){
+			try {
+				$db = config::getConnexion();
+				$query = $db->prepare(
+					'UPDATE utilisateur SET 
+						nom= :nom, 
+						prenom= :prenom,
+                        email= :email,
+                        mdp= :mdp, 
+						adresse= :adresse, 
+                        tel= :tel, 
+                        ville= :ville, 
+                        rolee= :rolee,
+						banned= :banned
+					WHERE idu= :idu'
+				);
+				$query->execute([
+					'nom' => $utilisateur->getNom(),
+					'prenom' => $utilisateur->getPrenom(),
+					'email' => $utilisateur->getEmail(),
+                    'mdp' => $utilisateur->getMdp(),
+					'adresse' => $utilisateur->getAdresse(),
+                    'tel' => $utilisateur->getTel(),
+                    'ville' => $utilisateur->getVille(),
+                    'rolee' => $utilisateur->getRole(),
+					'banned' => $utilisateur->getBanned(),
+					'idu' => $idu
+				]);	
+				echo $query->rowCount() . " records UPDATED successfully <br>";
+			} catch (PDOException $e) {
+				$e->getMessage();
+			}
+		}
+
+
 
 	}
 ?>

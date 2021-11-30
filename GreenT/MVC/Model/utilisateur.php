@@ -9,8 +9,9 @@
         private $tel=null;
         private $ville=null;
         private $rolee=null;
+		private $banned=null;
 		
-		function __construct(/*$idu, */$nom, $prenom, $email, $mdp, $adresse, $tel, $ville, $rolee){
+		function __construct(/*$idu, */$nom, $prenom, $email, $mdp, $adresse, $tel, $ville, $rolee, $banned){
 			//$this->idu=$idu;
 			$this->nom=$nom;
 			$this->prenom=$prenom;
@@ -20,6 +21,7 @@
             $this->tel=$tel;
 			$this->ville=$ville;
 			$this->rolee=$rolee;
+			$this->banned=$banned;
 		}
 		/*function getId(){
 			return $this->idu;
@@ -48,6 +50,9 @@
         function getRole(){
 			return $this->rolee;
 		}
+		function getBanned(){
+			return $this->banned;
+		}
 
         //////////
 
@@ -75,6 +80,9 @@
 		}
         function setRole(string $rolee){
 			$this->rolee=$rolee;
+		}
+		function setBanned(string $banned){
+			$this->banned=$banned;
 		}
 	}
 

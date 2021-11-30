@@ -3,15 +3,19 @@
     //require 'C:\xampp\htdocs\WebGreenT\GreenT\MVC\Controller\utilisateurController.php';
 	include_once '../../../Controller/utilisateurController.php';
 	require_once '../../../Model/utilisateur.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'\WebGreenT\GreenT\MVC\config.php';
     $error = "";
 
     // create utilisateur
     $utilisateur = null;
     // create an instance of the controller
     $utilisateurC = new utilisateurC();
-
+	/*if(isset($_POST['submit']) && $_POST['g-recaptcha-response']!="") {
+	$secret = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+	$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+	$responseData = json_decode($verifyResponse);
+	if($responseData->success) {*/
 	
-
     if (
 		
 		isset($_POST["nom"]) &&		
@@ -34,7 +38,8 @@
 				$_POST['adresse'],
 				$_POST['tel'],
 				$_POST['ville'],
-				1
+				1,
+				0
 				//kamil b9iyit les parametre mte3 constructeur fil class utilisateur 7at fil constructeur 8 parametre w lina ta3ti fih ken fi 4
 				//ok
             );
@@ -43,7 +48,12 @@
         }
         else
             $error = "Missing information";
-    }
+    	}	
+	
+	
+/*else
+$error = "Missing Captcha";
+	}*/
 
     
 ?>
@@ -51,6 +61,7 @@
 <head>
 	<title>GreenT - Register</title>
 	<script src="../../../Controller/registerController.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -124,14 +135,15 @@
 						</span>
 					</div>
 					
+					
+						
+						<div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+					<div class="container-login100-form-btn">
 					<div class="text-center p-t-20">
 						<a id="err" class="txt2" style="color:red">
 						<?php echo $error; ?>
 						</a>
 						</div>
-						
-
-					<div class="container-login100-form-btn">
 						<button type="submit" onclick="verif();" class="login100-form-btn">Register</button>
 					</div>
 
