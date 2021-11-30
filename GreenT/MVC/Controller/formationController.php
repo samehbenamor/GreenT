@@ -15,6 +15,29 @@
 				die('Erreur:'. $e->getMeesage());
 			}
 		}
+		function afficherFormationFree(){
+			$sql="SELECT * FROM formation WHERE etat=1";
+			$db = config::getConnexion();
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMeesage());
+			}
+		}
+		function afficherFormationPayante(){
+			$sql="SELECT * FROM formation WHERE etat=2 OR etat=3";
+			$db = config::getConnexion();
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMeesage());
+			}
+		}
+
 		function supprimerFormation($id){
 			$sql="DELETE FROM formation WHERE id=:id";
 			$db = config::getConnexion();

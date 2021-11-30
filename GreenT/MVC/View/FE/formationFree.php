@@ -3,7 +3,7 @@ include '../../Controller/formationController.php';
 require_once '../../Model/formation.php';
 session_start();
 $formationC=new formationC();
-$listeFormation=$formationC->afficherFormation(); 
+$listeFormation=$formationC->afficherFormationFree(); 
 
 
 ?>
@@ -181,8 +181,8 @@ $listeFormation=$formationC->afficherFormation();
               <h3 class="sidebar-title">Les formations</h3>
               <div class="sidebar-item categories">
                 <ul>
-                  <li><a href="formationFree.php">Gratuit<span></span></a></li>
-                  <li><a href="formationPayante.php">Payé<span></span></a></li>
+                  <li><a href="#">Gratuit<span></span></a></li>
+                  <li><a href="#">Payé<span></span></a></li>
                 </ul>
               </div><!-- End sidebar categories-->
 
