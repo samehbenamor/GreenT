@@ -63,6 +63,21 @@
 				die('Erreur: '.$e->getMessage());
 			}
 		}
+
+		function recupererUtilisateurEmail($email){
+			$sql="SELECT * from utilisateur where email=$email";
+			$db = config::getConnexion();
+			try{
+				$query=$db->prepare($sql);
+				$query->execute();
+
+				$utilisateur=$query->fetch();
+				return $utilisateur;
+			}
+			catch (Exception $e){
+				die('Erreur: '.$e->getMessage());
+			}
+		}
 		
 		function modifierUtilisateur($utilisateur, $idu){
 			try {
@@ -98,32 +113,48 @@
 			}
 		}
 
-		function banUtilisateur($utilisateur, $idu){
+		function banUtilisateur($idu){
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(
 					'UPDATE utilisateur SET 
-						nom= :nom, 
-						prenom= :prenom,
-                        email= :email,
-                        mdp= :mdp, 
-						adresse= :adresse, 
-                        tel= :tel, 
-                        ville= :ville, 
-                        rolee= :rolee,
-						banned= :banned
+						banned= 1
 					WHERE idu= :idu'
 				);
 				$query->execute([
-					'nom' => $utilisateur->getNom(),
-					'prenom' => $utilisateur->getPrenom(),
-					'email' => $utilisateur->getEmail(),
-                    'mdp' => $utilisateur->getMdp(),
-					'adresse' => $utilisateur->getAdresse(),
-                    'tel' => $utilisateur->getTel(),
-                    'ville' => $utilisateur->getVille(),
-                    'rolee' => $utilisateur->getRole(),
-					'banned' => $utilisateur->getBanned(),
+					'idu' => $idu
+				]);	
+				echo $query->rowCount() . " records UPDATED successfully <br>";
+			} catch (PDOException $e) {
+				$e->getMessage();
+			}
+		}
+
+		function unBanUtilisateur($idu){
+			try {
+				$db = config::getConnexion();
+				$query = $db->prepare(
+					'UPDATE utilisateur SET 
+						banned= 0
+					WHERE idu= :idu'
+				);
+				$query->execute([
+					'idu' => $idu
+				]);	
+				echo $query->rowCount() . " records UPDATED successfully <br>";
+			} catch (PDOException $e) {
+				$e->getMessage();
+			}
+		}
+		function ChangeMdpUtilisateur($idu, $newpass){
+			try {
+				$db = config::getConnexion();
+				$query = $db->prepare(
+					'UPDATE utilisateur SET 
+						mdp= :newpass
+					WHERE idu= :idu'
+				);
+				$query->execute([
 					'idu' => $idu
 				]);	
 				echo $query->rowCount() . " records UPDATED successfully <br>";

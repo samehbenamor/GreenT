@@ -3,7 +3,7 @@ include '../../Controller/evenementController.php';
 require_once '../../Model/evenement.php';
 session_start();
 $evenementC=new evenementC();
-$listeEvenement=$evenementC->afficherEvenement(); 
+$listeEvenement=$evenementC->afficherEvenementAutre(); 
 
 
 ?>
@@ -137,7 +137,7 @@ $listeEvenement=$evenementC->afficherEvenement();
                 <?php echo $evenement['descrip']; ?>
                 </p>
                 <div class="read-more">
-                  <a href="blog-single.php?titre=<?php echo $evenement['titre']; ?>&ville=<?php echo $evenement['ville']; ?>&dateeve=<?php echo $evenement['dateeve']; ?>&descrip=<?php echo $evenement['descrip']; ?>">Partir</a>
+                  <a href="blog-single.php?titre=<?php echo $evenement['titre']; ?>&ville=<?php echo $evenement['ville']; ?>&dateeve=<?php echo $formation['dateeve']; ?>&descrip=<?php echo $formation['descrip']; ?>">Partir</a>
                 </div>
               </div>
 
@@ -160,13 +160,7 @@ $listeEvenement=$evenementC->afficherEvenement();
 
           <div class="col-lg-4">
 
-          <h3 class="sidebar-title">Recherche</h3>
-              <div class="sidebar-item search-form">
-                <form action="blogsearch.php" method="POST">
-                  <input type="text" name="search" id="search">
-                  <button type="submit"><i class="bi bi-search"></i></button>
-                </form>
-              </div><!-- End sidebar search formn-->
+      
 
               <h3 class="sidebar-title">Les campagnes de propretés</h3>
               <div class="sidebar-item categories">

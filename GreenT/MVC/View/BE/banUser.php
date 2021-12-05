@@ -7,6 +7,12 @@ $utilisateur = NULL;
 $idu = $_GET["idu"];
 $utilisateur = $utilisateurC->recupererUtilisateur($idu);
 var_dump($utilisateur);
-//$utilisateurC->banUtilisateur($utilisateur, $idu);
-//header('Location:tables-data.php');
+if($utilisateur["banned"] == 1){
+    $utilisateurC->unBanUtilisateur($idu);
+}
+else {
+    $utilisateurC->banUtilisateur($idu);
+}
+
+header('Location:tables-data.php');
 ?>

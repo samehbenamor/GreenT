@@ -1,3 +1,10 @@
+<?php 
+session_start();
+$titre = $_GET["titre"];
+$ville = $_GET["ville"];
+$dateeve = $_GET["dateeve"];
+$descrip = $_GET["descrip"];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +12,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Randonnée</title>
+  <title><?php echo $titre; ?></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,21 +50,34 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="active " href="index.html">Home</a></li>
-          <a href="about.html">About</a>
-          <li><a href="team.html">Team</a></li>
-          <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="loginregis/index.html">Log in</a></li>
-              <li><a href="loginregis/register.html">Register</a></li>
-            </ul>
-          </li>
+          <li><a href="index.php">Home</a></li>
+          <a href="about.php">About</a>
+          <li><a href="team.php">Team</a></li>
+          <?php
+              if (isset($_SESSION['id'])) {
+                echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
+                  <ul>';
+                    if ($_SESSION['role'] == 1) {
+                      echo '<li><a href="../BE/index.html">Dashboard</a></li>';
+                    }
+                    echo '<li><a href="loginregis/modifier.php">Modifier votre profile</a></li>
+                    <li><a href="loginregis/logout.php">Log out</a></li>
+                  </ul>
+                </li>';
+              } else {
+                echo '<li class="dropdown"><a href="#"><span>Login or register</span> <i class="bi bi-chevron-down"></i></a>';
+                 echo '<ul><li><a href="loginregis/index.php">Log in</a></li>';
+                  echo'<li><a href="loginregis/register.php">Register</a></li></ul></li>';
+                  
+                
+              }
+              ?>
           <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="services.html">Les formations</a></li>
-              <li><a href="portfolio.html">Les randonnées</a></li>
-              <li><a href="blog.html">Les campagnes de propretés</a></li>
-              <li><a href="payer/index.html">Payer une don</a></li>
+              <li><a href="services.php">Les formations</a></li>
+              <li><a href="portfolio.php">Les randonnées</a></li>
+              <li><a href="blog.php">Les campagnes de propretés</a></li>
+              <li><a href="payer/index.php">Payer une don</a></li>
             </ul>
           </li>
           <li><a href="contact.html">Contact Us</a></li>
@@ -76,7 +96,7 @@
 
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li><a href="blog.html">Randonnée</a></li>
+            <li><a>Formation</a></li>
           </ol>
         </div>
 
@@ -94,60 +114,31 @@
             <article class="entry entry-single">
 
               <div class="entry-img">
-                <img src="assets/img/photo/cmp1.jpg" alt="" class="img-fluid">
+                <img src="#" alt="" class="img-fluid">
               </div>
 
               <h2 class="entry-title">
-                <a href="blog-single.html">Nous organisons une Randonnée au Parc national de bouhedma : </a>
+                <a href="blog-single.php"><?php echo $titre; ?></a>
               </h2>
 
               <div class="entry-meta">
                 <ul>
-                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">Chtioui Mohamed Amine</a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">9 Aout, 2021</time></a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
+                <li class="d-flex align-items-center"><i class="fa fa-map-marker"></i><?php echo $ville; ?></li>
+                <li class="d-flex align-items-center"><i class="fa fa-calendar"></i> <?php echo $dateeve; ?></li>
                 </ul>
               </div>
 
               <div class="entry-content">
                 <p>
-                  Le parc national de Bouhedma se trouve au centre de la Tunisie, entre le gouvernorat de Gafsa et celui de Sidi Bouzid (à 85 km à l’est de Gafsa et à 105 km à l’ouest de Sfax), sur la chaîne Orbata-Bou Hedma de l’Atlas saharien.
-                  Le parc national de Bouhedma Couvre 16 448 hectares, il représente le deuxième parc naturel tunisien en termes de superficie.
-                  
-                </p>
-
-
-
-        
-                </blockquote>
-
-                <p>
-                  Il s’agit d’une réserve de biosphère reconnue par l’UNESCO en tant que zone modèle conciliant la conservation de la biodiversité et le développement durable.
-                  La végétation du parc national de Bouhedma comporte les éléments typiquement méditerranéens relatifs au climat semi-aride de la Tunisie, et se distingue par la présence de la célèbre relique de la savane présaharienne : l’Acacia raddiana.
-                  En effet les prairies du parc national de Bouhedma font partie des dernières savanes en Afrique du Nord. La principale espèce végétale du parc est l’acacia rad Diana.
-                  Les espèces animales que le parc national de Bouhedma abrite font partie de la faune caractéristique du Sahara et des régions méditerranéennes arides, y compris des éléments qui ont été détruits ailleurs en Tunisie. Les espèces en voie d’extinction comprennent l’Addax, l’Autruche d’Afrique et la Gazelle de Mhorr…
-                  Sur ses 16 000 hectares, plusieurs espèces aviaires y ont élu domicile (autruches, loriots d’Europe, huppe fasciée, sirli du désert, hiboux grand duc, perdrix gambra…), des dizaines d’espèces de reptiles et de mammifères (caméléon, tortue grecque, tarentule, agame du désert, cobra, vipère, varan du désert, antilope addax, gazelle Dorcas, mouflon…).
+                 <?php echo $descrip; ?>
                 </p>
 
               
-                <img src="assets/img/photo/cmp21.png" class="img-fluid" alt="">
+                <img src="#" class="img-fluid" alt="">
 
              
 
-              <div class="entry-footer">
-                <i class="bi bi-folder"></i>
-                <ul class="cats">
-                  <li><a href="#">Business</a></li>
-                </ul>
-
-                <i class="bi bi-tags"></i>
-                <ul class="tags">
-                  <li><a href="#">Creative</a></li>
-                  <li><a href="#">Tips</a></li>
-                  <li><a href="#">Marketing</a></li>
-                </ul>
-              </div>
-
+    
             </article><!-- End blog entry -->
 
             <div class="blog-author d-flex align-items-center">

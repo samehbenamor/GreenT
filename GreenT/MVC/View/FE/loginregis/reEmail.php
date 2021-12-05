@@ -6,129 +6,12 @@
 	require_once $_SERVER['DOCUMENT_ROOT'].'\WebGreenT\GreenT\MVC\config.php';
     $error = "";
 	session_start();
-    // create utilisateur
-    $utilisateur = null;
-
-    // create an instance of the controller
-    $utilisateurC = new utilisateurC();
-
-	/*if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-		header("location: welcome.php");
-		exit;
-	}*/
-
-	$pdo = config::getConnexion();
-
-	$email = $password = "";
-
-	if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-		// Check if username is empty
-		if(empty(trim($_POST["email"]))){
-			$error = "Please enter email.";
-		} else{
-			$email = trim($_POST["email"]);
-		}
-
-	if(empty(trim($_POST["mdp"]))){
-        $error = "Please enter your password.";
-    } else{
-        $password = trim($_POST["mdp"]);
-    }
-
-	if(empty($error)){
-        // Prepare a select statement
-        $sql = "SELECT idu, nom, prenom, email, mdp, rolee, banned  FROM utilisateur WHERE email = :email";
-
-		if($stmt = $pdo->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
-			$param_email = trim($_POST["email"]);
-			// Attempt to execute the prepared statement
-            if($stmt->execute()){
-				// Check if username exists, if yes then verify password
-                if($stmt->rowCount() == 1){
-                    if($row = $stmt->fetch()){
-                        $id = $row["idu"];
-                        $email = $row["email"];
-						$name = $row["nom"];
-						$prenom = $row["prenom"];
-						$role = $row["rolee"];
-						$banned = $row["banned"];
-                        $hashed_password = $row["mdp"];
-                        if($password == $hashed_password){
-                            // Password is correct, so start a new session
-                            session_start();
-							$_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["email"] = $email; 
-							$_SESSION["name"] = $name;
-							$_SESSION["prenom"] = $prenom;
-							$_SESSION["mdp"] = $password;
-							$_SESSION["role"] = $role;
-							$_SESSION["banned"] = $banned;
-								if ($_SESSION["banned"] == 1) {
-									header("location:../Banned.php");
-								} else {
-									header("location:../index.php");
-								}
-							
-						} else{
-                            // Password is not valid, display a generic error message
-                            $error = "Invalid password.";
-                        }
-                    }
-				} else{
-                    // Username doesn't exist, display a generic error message
-                    $error = "Invalid email.";
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            unset($stmt);
-        }
-    }
-    
-    // Close connection
-    unset($pdo);
-}
-
-
-
-    /*if (
-		isset($_POST["email"]) && 
-        isset($_POST["mdp"])
-    ) {
-        if (
-            !empty($_POST["email"]) && 
-			!empty($_POST["mdp"])
-        ) {
-			$email = $_POST["email"];
-			$mdp = $_POST["mdp"];
-			$sql="SELECT * from utilisateur where email=$email";
-			$db = config::getConnexion();
-			$query=$db->prepare($sql);
-			//$query->execute();
-
-			if (mysqli_num_rows($query) != 0)
-  				{
-					$utilisateur = new utilisateur();
-					$utilisateur=$query->fetch();
-					
-					$_SESSION["id"] = $utilisateur->$idu;
-					header('Location:../index.html');
- 				}
-			}
-				else 
-					$error = "Email or password wrong.";
-		}*/
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>GreenT - Login</title>
+	<title>GreenT - Email confirmation</title>
 	<script src="../../../Controller/loginController.js"></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -158,9 +41,9 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" >
+				<form class="login100-form validate-form" action="../send_link.php" method="post" >
 					<span class="login100-form-title">
-						Member Login
+						Enter your email for password reset
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -171,13 +54,7 @@
 						</span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="mdp" id="pass" placeholder="Mot de passe">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-					</div>
+					
 
 					<div class="text-center p-t-20">
 						<a id="err" class="txt2" style="color:red">
@@ -187,7 +64,7 @@
 					
 					<div class="container-login100-form-btn">
 						<button type="submit" onclick="verif();" class="login100-form-btn">
-							Login
+							Reset
 						</button>
 					</div>
 
@@ -195,7 +72,7 @@
 						<span class="txt1">
 							Forgot
 						</span>
-						<a class="txt2" href="reEmail.php">
+						<a class="txt2" href="#">
 							Username / Password?
 						</a>
 					</div>

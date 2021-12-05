@@ -1,76 +1,88 @@
 
 <?php
-include '../../Controller/formationController.php';
-require_once '../../Model/formation.php';
-$formationC=new formationC();
-$listeFormation=$formationC->afficherFormation(); 
+include '../../Controller/commentaireController.php';
+require_once '../../Model/commentaire.php';
+include '../../Controller/utilisateurController.php';
+require_once '../../Model/utilisateur.php';
+$commentaireC=new commentaireC();
+$listeCommentaire=$commentaireC->afficherCommentaire(); 
 session_start(); 
 $error = "";
   
-    // create utilisateur
-    $formation = null;
-    // create an instance of the controller
-    $formationC1 = new formationC();
+    
+    $utilisateurC = new utilisateurC();
+
+    $commentaire = null;
+    $commentaireC1 = new commentaireC();
 
 	
     //creating a user
     if (
-		isset($_POST["titre"]) &&		
-        isset($_POST["theme"]) &&
-		isset($_POST["descp"]) && 
-        isset($_POST["etat"])
+		isset($_POST["nom"]) &&		
+        isset($_POST["prenom"]) &&
+		isset($_POST["email"])
     ) {
         if (
-            !empty($_POST["titre"]) && 
-			!empty($_POST["theme"]) &&
-            !empty($_POST["descp"]) && 
-			!empty($_POST["etat"])
+            !empty($_POST["nom"]) && 
+			!empty($_POST["prenom"]) &&
+            !empty($_POST["email"])
         ) {
 			//echo '<script type="text/javascript">alert("Hello! I am an alert box!!");</script>';
-            $formation = new formation(
-				$_POST['titre'],
-                $_POST['theme'], 
-				$_POST['descp'],
-                $_POST['etat']
+            $commentaire = new commentaire(
+				$_POST['nom'],
+                $_POST['prenom'], 
+				$_POST['email']
 				//kamil b9iyit les parametre mte3 constructeur fil class utilisateur 7at fil constructeur 8 parametre w lina ta3ti fih ken fi 4
 				//ok
             );
-            $formationC1->ajouterFormation($formation);
-            header('Location:formations.php');
+            $commentaireC1->ajouterCommentaire($commentaire);
+            header('Location:commentaire.php');
         }
         else
             $error = "Missing information";
     }
 
-    //modify a user
+    /*modify a user
     if (
 		
-      isset($_POST["titre2"]) &&		
-          isset($_POST["theme2"]) &&
-      isset($_POST["descp2"]) && 
-          isset($_POST["etat2"])
+      isset($_POST["nom2"]) &&		
+          isset($_POST["prenom2"]) &&
+      isset($_POST["email2"]) && 
+          isset($_POST["mdp2"])
       ) {
           if (
-              !empty($_POST["titre2"]) && 
-        !empty($_POST["theme2"]) &&
-              !empty($_POST["descp2"]) && 
-        !empty($_POST["etat2"])
+              !empty($_POST["nom2"]) && 
+        !empty($_POST["prenom2"]) &&
+              !empty($_POST["email2"]) && 
+        !empty($_POST["mdp2"])
           ) {
         //echo '<script type="text/javascript">alert("Hello! I am an alert box!!");</script>';
-              $formation = new formation(
-          $_POST['titre2'],
-                  $_POST['theme2'], 
-          $_POST['descp2'],
-                  $_POST['etat2']
+              $utilisateur = new utilisateur(
+          $_POST['nom2'],
+                  $_POST['prenom2'], 
+          $_POST['email2'],
+                  $_POST['mdp2'],
+          $_POST['adresse2'],
+          $_POST['tel2'],
+          $_POST['ville2'],
+          0
               );
-              //var_dump($utilisateur);
+              var_dump($utilisateur);
+              $_SESSION["email"] = $_POST['email2']; 
+        $_SESSION["name"] = $_POST['nom2'];
+        $_SESSION["prenom"] = $_POST['prenom2'];
+              $_SESSION["mdp"] = $_POST['mdp2'];
+              $_SESSION["adresse"] = $_POST['adresse2'];
+              $_SESSION["ville"] = $_POST['ville2'];
+              $_SESSION["tel"] = $_POST['tel2'];
+              $_SESSION["role"] = $_POST['role2'];
         
-              $formationC->modifierFormation($formation, $_POST['id2']);
-              header('Location:formations.php');
+              $utilisateurC->modifierUtilisateur($utilisateur, $_POST['idu2']);
+              //header('Location:../index.php');
           }
           else
               $error = "Missing information";
-      }    
+      }*/    
       
 
 
@@ -83,8 +95,8 @@ $error = "";
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Tables / Data - NiceAdmin Bootstrap Template</title>
-  <script src="../../Controller/formationController.js"></script>
+  <title>Comments</title>
+  <script src="../../Controller/commentaireController.js"></script>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -401,18 +413,23 @@ $error = "";
         <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           
           <li>
-            <a href="tables-data.php" >
+            <a href="tables-data.php" class="active">
               <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
           <li>
-            <a href="formations.php" class="active">
-              <i class="bi bi-circle"></i><span>Formations</span>
+            <a href="formations.php" >
+              <i class="bi bi-circle"></i><span>Les formations</span>
             </a>
           </li>
           <li>
             <a href="evenements.php">
               <i class="bi bi-circle"></i><span>Evenements</span>
+            </a>
+          </li>
+          <li>
+            <a href="commentaire.php">
+              <i class="bi bi-circle"></i><span>Commentaires</span>
             </a>
           </li>
         </ul>
@@ -496,85 +513,32 @@ $error = "";
 
           <div class="card">
             <div class="card-body">
+              <h5 class="card-title">Comments</h5>
+
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">Id</th> 
-                    <th scope="col">Titre</th>
-                    <th scope="col">Theme</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Etat</th>
-                    <th scope="col">Modifier</th>
-                    <th scope="col">Supprimer</th>
-
+                    <th scope="col">Mail de l'utilisateur</th>
+                    <th scope="col">Id Post</th>
+                    <th scope="col">Commentaire</th>
+                    <th scope="col">Crée le</th>
+                    <th scope="col">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  foreach($listeFormation as $formation){
+                  foreach($listeCommentaire as $commentaire){
                   ?>
                   <tr>
-                    <td><?php echo $formation['id']; ?></td>
-                    <td><?php echo $formation['titre']; ?></td>
-                    <td><?php echo $formation['theme']; ?></td>
-                    <td><?php echo $formation['descp']; ?></td>
-                    <td><?php echo $formation['etat']; ?></td>
-                    <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-folder"></i></button><div class="modal fade" id="verticalycentered" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modify this formation</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form method="post" action="">
-                      <input type="text" class="form-control" name="id2" id="id"  value="<?php echo $formation['id']; ?>" hidden>
-
-                        <div class="row mb-3">
-                          <label for="inputPassword" class="col-sm-2 col-form-label">Titre</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="titre2" id="titre"  value="<?php echo $formation['titre']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Theme</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="theme2" id="theme"  value="<?php echo $formation['theme']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Description</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control"  name="descp2" id="descp" value="<?php echo $formation['descp']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label" >Etat</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="etat2" id="etat"   value="<?php echo $formation['etat']; ?>">
-                          </div>
-                        </div>
-                       
-                    
-                
-                          <div class="col-sm-10">
-                            <button type="submit" onclick="verif();" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </div>
-                        <div class="text-center p-t-20">
-		                    <a id="err" class="txt2" style="color:red">
-					        </a>
-						</div>
-        
-                      </form>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div></td>
-
-                   <td><a href="supprimerFormation.php?id=<?php echo $formation['id']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></td>
+                    <td><?php echo $commentaire['id']; ?></td>
+                    <?php $utilisateur = $utilisateurC->recupererUtilisateur($commentaire['user_id']); ?>
+                    <td><?php /*echo $commentaire['user_id'];*/ echo $utilisateur['email']; ?></td>
+                    <td><?php echo $commentaire['post_id']; ?></td>
+                    <td><?php echo $commentaire['body']; ?></td>
+                    <td><?php echo date("F j, Y ", strtotime($commentaire["created_at"])); ?></td>
+                   <td><a href="supprimerCommentaire.php?id=<?php echo $commentaire['id']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></button></td>
                   </tr>
                   <?php
 				                }
@@ -583,39 +547,33 @@ $error = "";
               </table>
               <!-- End Table with stripped rows -->
               <button type="button" class="btn btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#verticalycentered1">
-                Add a formation
+                Add a comment
               </button>
               <div class="modal fade" id="verticalycentered1" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Create a formation</h5>
+                      <h5 class="modal-title">Create a comment</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <form method="post" action="">
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Titre</label>
+                          <label class="col-sm-2 col-form-label">User id</label>
                           <div class="col-sm-10">
-                            <input type="text" name="titre" id="titre">
+                            <input type="text" name="nom" id="nom">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputPassword" class="col-sm-2 col-form-label">Theme</label>
+                          <label for="inputPassword" class="col-sm-2 col-form-label">Post id</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="theme" id="theme">
+                            <input type="text" class="form-control" name="prenom" id="prenom">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Descrption</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Commentaire</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="descp" id="descp">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Etat</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="etat" id="etat">
+                            <input type="text" class="form-control" name="email" id="email">
                           </div>
                         </div>
                         <div class="text-center p-t-20">
@@ -626,7 +584,7 @@ $error = "";
                          <div class="row mb-3">
                           <label class="col-sm-2 col-form-label"></label>
                           <div class="col-sm-10">
-                            <button type="submit" onclick="verif();" class="btn btn-primary">Create a formation</button>
+                            <button type="submit" onclick="verif();" class="btn btn-primary">Create comment</button>
                           </div>
                         </div>
         

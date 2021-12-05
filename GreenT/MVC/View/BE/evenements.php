@@ -1,42 +1,44 @@
 
 <?php
-include '../../Controller/formationController.php';
-require_once '../../Model/formation.php';
-$formationC=new formationC();
-$listeFormation=$formationC->afficherFormation(); 
-session_start(); 
+include '../../Controller/evenementController.php';
+require_once '../../Model/evenement.php';
+session_start();
+// create an instance of the controller
+$evenementC=new evenementC();
+$evenementC1 = new evenementC();
+$listeEvenement=$evenementC->afficherEvenement(); 
 $error = "";
   
-    // create utilisateur
-    $formation = null;
-    // create an instance of the controller
-    $formationC1 = new formationC();
+    // create evenement
+    $evenement = null;
+    
+    
 
 	
     //creating a user
     if (
-		isset($_POST["titre"]) &&		
-        isset($_POST["theme"]) &&
-		isset($_POST["descp"]) && 
-        isset($_POST["etat"])
+		isset($_POST["ville"]) &&		
+        isset($_POST["dateeve"]) &&
+		isset($_POST["descrip"]) && 
+        isset($_POST["titre"])
     ) {
         if (
-            !empty($_POST["titre"]) && 
-			!empty($_POST["theme"]) &&
-            !empty($_POST["descp"]) && 
-			!empty($_POST["etat"])
+            !empty($_POST["ville"]) && 
+			!empty($_POST["dateeve"]) &&
+            !empty($_POST["descrip"]) && 
+			!empty($_POST["titre"])
         ) {
 			//echo '<script type="text/javascript">alert("Hello! I am an alert box!!");</script>';
-            $formation = new formation(
-				$_POST['titre'],
-                $_POST['theme'], 
-				$_POST['descp'],
-                $_POST['etat']
+            $evenement = new evenement(
+				$_POST['ville'],
+                $_POST['dateeve'], 
+				$_POST['descrip'],
+                $_POST['titre']
 				//kamil b9iyit les parametre mte3 constructeur fil class utilisateur 7at fil constructeur 8 parametre w lina ta3ti fih ken fi 4
 				//ok
             );
-            $formationC1->ajouterFormation($formation);
-            header('Location:formations.php');
+            $evenementC1->ajouterEvenement($evenement);
+            header('Location:evenements.php');
         }
         else
             $error = "Missing information";
@@ -45,32 +47,34 @@ $error = "";
     //modify a user
     if (
 		
-      isset($_POST["titre2"]) &&		
-          isset($_POST["theme2"]) &&
-      isset($_POST["descp2"]) && 
-          isset($_POST["etat2"])
+        isset($_POST["ville2"]) &&		
+        isset($_POST["dateeve2"]) &&
+		isset($_POST["descrip2"]) && 
+        isset($_POST["titre2"])
       ) {
           if (
-              !empty($_POST["titre2"]) && 
-        !empty($_POST["theme2"]) &&
-              !empty($_POST["descp2"]) && 
-        !empty($_POST["etat2"])
+            !empty($_POST["ville2"]) && 
+			!empty($_POST["dateeve2"]) &&
+            !empty($_POST["descrip2"]) && 
+			!empty($_POST["titre2"])
           ) {
         //echo '<script type="text/javascript">alert("Hello! I am an alert box!!");</script>';
-              $formation = new formation(
-          $_POST['titre2'],
-                  $_POST['theme2'], 
-          $_POST['descp2'],
-                  $_POST['etat2']
+              $evenement = new evenement(
+                $_POST['ville2'],
+                $_POST['dateeve2'], 
+				$_POST['descrip2'],
+                $_POST['titre2']
               );
-              //var_dump($utilisateur);
+              //var_dump($evenement);
         
-              $formationC->modifierFormation($formation, $_POST['id2']);
-              header('Location:formations.php');
+              $evenementC->modifierEvenement($evenement, $_POST['id2']);
+              header('Location:evenements.php');
           }
           else
               $error = "Missing information";
-      }    
+      }
+      
+      
       
 
 
@@ -83,8 +87,8 @@ $error = "";
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Tables / Data - NiceAdmin Bootstrap Template</title>
-  <script src="../../Controller/formationController.js"></script>
+  <title>Campagnes de propretes</title>
+  <script src="../../Controller/evenementController.js"></script>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -406,12 +410,12 @@ $error = "";
             </a>
           </li>
           <li>
-            <a href="formations.php" class="active">
+            <a href="formations.php">
               <i class="bi bi-circle"></i><span>Formations</span>
             </a>
           </li>
           <li>
-            <a href="evenements.php">
+            <a href="evenements.php" class="active">
               <i class="bi bi-circle"></i><span>Evenements</span>
             </a>
           </li>
@@ -502,9 +506,9 @@ $error = "";
                   <tr>
                     <th scope="col">Id</th> 
                     <th scope="col">Titre</th>
-                    <th scope="col">Theme</th>
+                    <th scope="col">Ville</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Etat</th>
+                    <th scope="col">Date du campagne</th>
                     <th scope="col">Modifier</th>
                     <th scope="col">Supprimer</th>
 
@@ -512,52 +516,51 @@ $error = "";
                 </thead>
                 <tbody>
                   <?php
-                  foreach($listeFormation as $formation){
+                  foreach($listeEvenement as $evenement){
                   ?>
                   <tr>
-                    <td><?php echo $formation['id']; ?></td>
-                    <td><?php echo $formation['titre']; ?></td>
-                    <td><?php echo $formation['theme']; ?></td>
-                    <td><?php echo $formation['descp']; ?></td>
-                    <td><?php echo $formation['etat']; ?></td>
+                    <td><?php echo $evenement['id']; ?></td>
+                    <td><?php echo $evenement['titre']; ?></td>
+                    <td><?php echo $evenement['ville']; ?></td>
+                    <td><?php echo $evenement['descrip']; ?></td>
+                    <td><?php echo $evenement['dateeve']; ?></td>
                     <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-folder"></i></button><div class="modal fade" id="verticalycentered" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Modify this formation</h5>
+                      <h5 class="modal-title">Modify this campagne</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <form method="post" action="">
-                      <input type="text" class="form-control" name="id2" id="id"  value="<?php echo $formation['id']; ?>" hidden>
+                      <input type="text" class="form-control" name="id2" id="id"  value="<?php echo $evenement['id']; ?>" hidden>
 
                         <div class="row mb-3">
                           <label for="inputPassword" class="col-sm-2 col-form-label">Titre</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="titre2" id="titre"  value="<?php echo $formation['titre']; ?>">
+                            <input type="text" class="form-control" name="titre2" id="titre"  value="<?php echo $evenement['titre']; ?>">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Theme</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Ville</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="theme2" id="theme"  value="<?php echo $formation['theme']; ?>">
+                            <input type="text" class="form-control" name="ville2" id="ville"  value="<?php echo $evenement['ville']; ?>">
                           </div>
                         </div>
                         <div class="row mb-3">
                           <label for="inputNumber" class="col-sm-2 col-form-label">Description</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control"  name="descp2" id="descp" value="<?php echo $formation['descp']; ?>">
+                            <input type="text" class="form-control"  name="descrip2" id="descrip" value="<?php echo $evenement['descrip']; ?>">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label" >Etat</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label" >Date du campagne</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="etat2" id="etat"   value="<?php echo $formation['etat']; ?>">
+                            <input type="text" class="form-control" name="dateeve2" id="dateeve"   value="<?php echo $evenement['dateeve']; ?>">
                           </div>
                         </div>
-                       
-                    
-                
+                        <a id="err" class="txt2" style="color:red">
+					        </a>
                           <div class="col-sm-10">
                             <button type="submit" onclick="verif();" class="btn btn-primary">Save changes</button>
                           </div>
@@ -574,7 +577,7 @@ $error = "";
                 </div>
               </div></td>
 
-                   <td><a href="supprimerFormation.php?id=<?php echo $formation['id']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></td>
+                   <td><a href="supprimerCampagne.php?id=<?php echo $evenement['id']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></td>
                   </tr>
                   <?php
 				                }
@@ -583,13 +586,13 @@ $error = "";
               </table>
               <!-- End Table with stripped rows -->
               <button type="button" class="btn btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#verticalycentered1">
-                Add a formation
+                Add a Campagne
               </button>
               <div class="modal fade" id="verticalycentered1" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Create a formation</h5>
+                      <h5 class="modal-title">Create a Campagne</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -601,32 +604,35 @@ $error = "";
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputPassword" class="col-sm-2 col-form-label">Theme</label>
+                          <label for="inputPassword" class="col-sm-2 col-form-label">Ville</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="theme" id="theme">
+                            <input type="text" class="form-control" name="ville" id="ville">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Descrption</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Description</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="descp" id="descp">
+                            <input type="text" class="form-control" name="descrip" id="descrip">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Etat</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Date du campagne</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="etat" id="etat">
+                            <input type="text" class="form-control" name="dateeve" id="dateeve" placeholder="DD-MM-YY">
                           </div>
                         </div>
                         <div class="text-center p-t-20">
 		                    <a id="err" class="txt2" style="color:red">
+					            	
+						            </a>
+                        <a id="err1" class="txt2" style="color:red">
 					            	<?php echo $error; ?>
 						            </a>
 						            </div>
                          <div class="row mb-3">
                           <label class="col-sm-2 col-form-label"></label>
                           <div class="col-sm-10">
-                            <button type="submit" onclick="verif();" class="btn btn-primary">Create a formation</button>
+                            <button type="submit" onclick="verif();" class="btn btn-primary">Create a Campagne</button>
                           </div>
                         </div>
         

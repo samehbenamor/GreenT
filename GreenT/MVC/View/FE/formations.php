@@ -145,7 +145,7 @@ $listeFormation=$formationC->afficherFormation();
                 <?php echo $formation['descp']; ?>
                 </p>
                 <div class="read-more">
-                  <a href="formation-single.php?titre=<?php echo $formation['titre']; ?>&theme=<?php echo $formation['theme']; ?>&etat=<?php echo $formation['etat']; ?>&descp=<?php echo $formation['descp']; ?>">Partir</a>
+                  <a href="formation-single.php?titre=<?php echo $formation['titre']; ?>&theme=<?php echo $formation['theme']; ?>&etat=<?php echo $formation['etat']; ?>&descp=<?php echo $formation['descp']; ?>&id=<?php echo $formation['id']; ?>">Partir</a>
                 </div>
               </div>
 

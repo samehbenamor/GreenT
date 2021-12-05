@@ -2,8 +2,9 @@
 include '../../Controller/evenementController.php';
 require_once '../../Model/evenement.php';
 session_start();
+$keyword = $_POST["search"];
 $evenementC=new evenementC();
-$listeEvenement=$evenementC->afficherEvenement(); 
+$listeEvenement=$evenementC->afficherEvenementSearch($keyword); 
 
 
 ?>
@@ -96,7 +97,7 @@ $listeEvenement=$evenementC->afficherEvenement();
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Nos campagnes de propretés: </h2>
+          <h2>Searching for <?php echo $keyword; ?>: </h2>
 
           <ol>
             <li><a href="index.php">Home</a></li>
