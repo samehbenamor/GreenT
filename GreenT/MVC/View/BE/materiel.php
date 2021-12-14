@@ -1,52 +1,48 @@
 
 <?php
-include '../../Controller/utilisateurController.php';
-require_once '../../Model/utilisateur.php';
-$utilisateurC=new utilisateurC();
-$listeUtilisateur=$utilisateurC->afficherUtilisateur(); 
+include '../../Controller/materielController.php';
+require_once '../../Model/materiel.php';
+include '../../Controller/evenementController.php';
+require_once '../../Model/evenement.php';
+$materielC=new materielC();
+$listeMateriel=$materielC->afficherMateriel(); 
 session_start(); 
 $error = "";
   
-    // create utilisateur
-    $utilisateur = null;
-    // create an instance of the controller
-    $utilisateurC1 = new utilisateurC();
+    
+    $evenementC = new evenementC();
+
+    $materiel = null;
+    $materielC = new materielC();
 
 	
     //creating a user
     if (
 		isset($_POST["nom"]) &&		
         isset($_POST["prenom"]) &&
-		isset($_POST["email"]) && 
-        isset($_POST["mdp"])
+		isset($_POST["email"])
     ) {
         if (
             !empty($_POST["nom"]) && 
 			!empty($_POST["prenom"]) &&
-            !empty($_POST["email"]) && 
-			!empty($_POST["mdp"])
+            !empty($_POST["email"])
         ) {
 			//echo '<script type="text/javascript">alert("Hello! I am an alert box!!");</script>';
-            $utilisateur = new utilisateur(
+            $materiel = new materiel(
 				$_POST['nom'],
                 $_POST['prenom'], 
-				$_POST['email'],
-                $_POST['mdp'],
-				$_POST['adresse'],
-				$_POST['tel'],
-				$_POST['ville'],
-				0
+				$_POST['email']
 				//kamil b9iyit les parametre mte3 constructeur fil class utilisateur 7at fil constructeur 8 parametre w lina ta3ti fih ken fi 4
 				//ok
             );
-            $utilisateurC1->ajouterUtilisateur($utilisateur);
-            header('Location:index.php');
+            $materielC->ajouterMateriel($materiel);
+            header('Location:materiel.php');
         }
         else
             $error = "Missing information";
     }
 
-    //modify a user
+    /*modify a user
     if (
 		
       isset($_POST["nom2"]) &&		
@@ -71,13 +67,22 @@ $error = "";
           $_POST['ville2'],
           0
               );
+              var_dump($utilisateur);
+              $_SESSION["email"] = $_POST['email2']; 
+        $_SESSION["name"] = $_POST['nom2'];
+        $_SESSION["prenom"] = $_POST['prenom2'];
+              $_SESSION["mdp"] = $_POST['mdp2'];
+              $_SESSION["adresse"] = $_POST['adresse2'];
+              $_SESSION["ville"] = $_POST['ville2'];
+              $_SESSION["tel"] = $_POST['tel2'];
+              $_SESSION["role"] = $_POST['role2'];
         
               $utilisateurC->modifierUtilisateur($utilisateur, $_POST['idu2']);
               //header('Location:../index.php');
           }
           else
               $error = "Missing information";
-      }    
+      }*/    
       
 
 
@@ -90,8 +95,8 @@ $error = "";
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Tables / Data - NiceAdmin Bootstrap Template</title>
-  <script src="../../Controller/registerController.js"></script>
+  <title>Materiel</title>
+  <script src="../../Controller/commentaireController.js"></script>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -417,6 +422,16 @@ $error = "";
               <i class="bi bi-circle"></i><span>Les formations</span>
             </a>
           </li>
+          <li>
+            <a href="evenements.php">
+              <i class="bi bi-circle"></i><span>Evenements</span>
+            </a>
+          </li>
+          <li>
+            <a href="commentaire.php">
+              <i class="bi bi-circle"></i><span>Commentaires</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Tables Nav -->
 
@@ -498,122 +513,30 @@ $error = "";
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Datatables</h5>
-              <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
+              <h5 class="card-title">Materiels</h5>
 
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">Id</th> 
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prenom</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mot de passe</th>
-                    <th scope="col">Adresse</th>
-                    <th scope="col">Numero de téléphone</th>
-                    <th scope="col">Ville</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Banned</th>
-                    <th scope="col">Modify</th>
+                    <th scope="col">Nom du evenement</th>
+                    <th scope="col">Nom du materiel</th>
+                    <th scope="col">Type de materiel</th>
                     <th scope="col">Delete</th>
-                    <th scope="col">Ban</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  foreach($listeUtilisateur as $utilisateur){
+                  foreach($listeMateriel as $materiel){
                   ?>
                   <tr>
-                    <td><?php echo $utilisateur['idu']; ?></td>
-                    <td><?php echo $utilisateur['nom']; ?></td>
-                    <td><?php echo $utilisateur['prenom']; ?></td>
-                    <td><?php echo $utilisateur['email']; ?></td>
-                    <td><?php echo $utilisateur['mdp']; ?></td>
-                    <td><?php echo $utilisateur['adresse']; ?></td>
-                    <td><?php echo $utilisateur['tel']; ?></td>
-                    <td><?php echo $utilisateur['ville']; ?></td>
-                    <td><?php echo $utilisateur['rolee']; ?></td>
-                    <td><?php echo $utilisateur['banned']; ?></td>
-                    <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-folder"></i></button><div class="modal fade" id="verticalycentered" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modify this user</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form method="post" action="">
-                      <input type="text" class="form-control" name="idu2" id="idu"  value="<?php echo $utilisateur['idu']; ?>" hidden>
-
-                        <div class="row mb-3">
-                          <label for="inputPassword" class="col-sm-2 col-form-label">Nom</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nom2" id="nom"  value="<?php echo $utilisateur['nom']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Prenom</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="prenom2" id="prenom"  value="<?php echo $utilisateur['prenom']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Email</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control"  name="email2" id="email" value="<?php echo $utilisateur['email']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label" >Mot de passe</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="mdp2" id="mdp"   value="<?php echo $utilisateur['mdp']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Adresse</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="adresse2" id="adresse"   value="<?php echo $utilisateur['adresse']; ?>"> 
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Numero de téléphone</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="tel2" id="tel"   value="<?php echo $utilisateur['tel']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Ville</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="ville2" id="ville"   value="<?php echo $utilisateur['ville']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Role (1 si admin, sinon 0)</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="role2" id="role"   value="<?php echo $utilisateur['rolee']; ?>">
-                          </div>
-                        </div>
-                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Submit Button</label>
-                          <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Submit Form</button>
-                          </div>
-                        </div>
-        
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div></td>
-
-                   <td><a href="supprimerUser.php?idu=<?php echo $utilisateur['idu']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></button></td>
-                   <td><a href="banUser.php?idu=<?php echo $utilisateur['idu']; ?>" class="btn btn-warning" ><i class="bi bi-exclamation-octagon"></i></button></td>
+                    <td><?php echo $materiel['id']; ?></td>
+                    <?php $evenement = $evenementC->recupererEvenement($materiel['post_id']); ?>
+                    <td><?php /*echo $commentaire['user_id'];*/ echo $evenement['titre']; ?></td>
+                    <td><?php echo $materiel['nom']; ?></td>
+                    <td><?php echo $materiel['typem']; ?></td>
+                   <td><a href="supprimerMateriel.php?id=<?php echo $materiel['id']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></button></td>
                   </tr>
                   <?php
 				                }
@@ -622,57 +545,33 @@ $error = "";
               </table>
               <!-- End Table with stripped rows -->
               <button type="button" class="btn btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#verticalycentered1">
-                Add a user
+                Add Materiels
               </button>
               <div class="modal fade" id="verticalycentered1" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Create a user</h5>
+                      <h5 class="modal-title">Create new materiel</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <form method="post" action="">
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Nom</label>
+                          <label class="col-sm-2 col-form-label">Nom du materiel</label>
                           <div class="col-sm-10">
                             <input type="text" name="nom" id="nom">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputPassword" class="col-sm-2 col-form-label">Prenom</label>
+                          <label for="inputPassword" class="col-sm-2 col-form-label">Type du materiel</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control" name="prenom" id="prenom">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Email</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">ID du post</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control" name="email" id="email">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Mot de passe</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="mdp" id="pass">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Adresse</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="adresse" id="adresse">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Numero de telephone</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="tel" id="tel">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Ville</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="tel" id="tel">
                           </div>
                         </div>
                         <div class="text-center p-t-20">
@@ -683,7 +582,7 @@ $error = "";
                          <div class="row mb-3">
                           <label class="col-sm-2 col-form-label"></label>
                           <div class="col-sm-10">
-                            <button type="submit" onclick="verif();" class="btn btn-primary">Create User</button>
+                            <button type="submit" onclick="verif();" class="btn btn-primary">Create new materiel</button>
                           </div>
                         </div>
         

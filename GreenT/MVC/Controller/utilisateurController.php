@@ -65,7 +65,7 @@
 		}
 
 		function recupererUtilisateurEmail($email){
-			$sql="SELECT * from utilisateur where email=$email";
+			$sql="SELECT * from utilisateur where email='$email'";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
@@ -155,6 +155,7 @@
 					WHERE idu= :idu'
 				);
 				$query->execute([
+					'newpass' => $newpass,
 					'idu' => $idu
 				]);	
 				echo $query->rowCount() . " records UPDATED successfully <br>";

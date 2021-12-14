@@ -1,83 +1,93 @@
 
 <?php
-include '../../Controller/utilisateurController.php';
-require_once '../../Model/utilisateur.php';
-$utilisateurC=new utilisateurC();
-$listeUtilisateur=$utilisateurC->afficherUtilisateur(); 
+include '../../Controller/randonnéea.php';
+require_once '../../Model/randonnée.php';
+$randonneC=new randonnéea();
+$listeRandonne=$randonneC->afficherrandonnée(); 
 session_start(); 
 $error = "";
-  
+//$image = null;
+
     // create utilisateur
-    $utilisateur = null;
+    $randonnée= null;
     // create an instance of the controller
-    $utilisateurC1 = new utilisateurC();
+    $randonnéeaa = new randonnéea();
 
 	
     //creating a user
-    if (
-		isset($_POST["nom"]) &&		
-        isset($_POST["prenom"]) &&
-		isset($_POST["email"]) && 
-        isset($_POST["mdp"])
-    ) {
-        if (
-            !empty($_POST["nom"]) && 
-			!empty($_POST["prenom"]) &&
-            !empty($_POST["email"]) && 
-			!empty($_POST["mdp"])
-        ) {
-			//echo '<script type="text/javascript">alert("Hello! I am an alert box!!");</script>';
-            $utilisateur = new utilisateur(
-				$_POST['nom'],
-                $_POST['prenom'], 
-				$_POST['email'],
-                $_POST['mdp'],
-				$_POST['adresse'],
-				$_POST['tel'],
-				$_POST['ville'],
-				0
-				//kamil b9iyit les parametre mte3 constructeur fil class utilisateur 7at fil constructeur 8 parametre w lina ta3ti fih ken fi 4
-				//ok
-            );
-            $utilisateurC1->ajouterUtilisateur($utilisateur);
-            header('Location:index.php');
-        }
-        else
-            $error = "Missing information";
+    if(
+        isset($_POST["destination"])&&
+        isset($_POST["descriptiona"])&&
+        isset($_POST["prix"])&&
+        isset($_POST["datea"])&&
+        isset($_POST["idc"])
+    ){
+    if(
+        !empty($_POST["destination"])&&
+        !empty($_POST["descriptiona"])&&
+        !empty($_POST["prix"])&&
+        !empty($_POST["datea"])&&
+        !empty($_POST["idc"])
+       
+    ){
+   
+      $image = $_FILES["image"];
+           $img_name = $_FILES['image']['name'];
+            $img_size = $_FILES['image']['size'];
+            $tmp_name = $_FILES['image']['tmp_name'];
+            $error = $_FILES['image']['error'];
+            if ($error === 0) {
+                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                $img_ex_lc = strtolower($img_ex);
+        
+                $allowed_exs = array("jpg", "jpeg", "png", "gif"); 
+        
+                if (in_array($img_ex_lc, $allowed_exs)) 
+                {
+                    $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
+                    $img_upload_path = '../FE/uploads/'.$new_img_name;
+                    move_uploaded_file($tmp_name, $img_upload_path);
+        
+                    
+                }
+            }
+        $randonnée= new randonnée(
+            $_POST['destination'],
+            $_POST['descriptiona'],
+            $_POST['prix'],
+            $_POST['datea'],
+            $_POST['idc']/*,
+            $new_img_name*/
+        );
+        $randonnéeaa->ajouterrandonnée($randonnée);
+      //  header('Location: randonne.php');
+    }
+    else
+    $error="Missing information";
     }
 
     //modify a user
-    if (
-		
-      isset($_POST["nom2"]) &&		
-          isset($_POST["prenom2"]) &&
-      isset($_POST["email2"]) && 
-          isset($_POST["mdp2"])
-      ) {
-          if (
-              !empty($_POST["nom2"]) && 
-        !empty($_POST["prenom2"]) &&
-              !empty($_POST["email2"]) && 
-        !empty($_POST["mdp2"])
-          ) {
-        //echo '<script type="text/javascript">alert("Hello! I am an alert box!!");</script>';
-              $utilisateur = new utilisateur(
-          $_POST['nom2'],
-                  $_POST['prenom2'], 
-          $_POST['email2'],
-                  $_POST['mdp2'],
-          $_POST['adresse2'],
-          $_POST['tel2'],
-          $_POST['ville2'],
-          0
-              );
-        
-              $utilisateurC->modifierUtilisateur($utilisateur, $_POST['idu2']);
-              //header('Location:../index.php');
-          }
-          else
-              $error = "Missing information";
-      }    
+    if(
+        isset($_POST["destination1"])&&
+        isset($_POST["descriptiona1"])&&
+        isset($_POST["prix1"])&&
+        isset($_POST["datea1"])&&
+        isset($_POST["idc1"])
+    ) {
+      
+      
+            $randonnée = new randonnée(
+				$_POST['destination1'],
+                $_POST['descriptiona1'], 
+				$_POST['prix1'],
+                $_POST['datea1'],
+                $_POST['idc1']
+            );
+            $randonneC1->modifierrandonnée($randonnée, $_POST["idu2"]);
+            header('Location:randonne.php');
+        }
+        else
+            echo 'Missing information';    
       
 
 
@@ -506,97 +516,71 @@ $error = "";
                 <thead>
                   <tr>
                     <th scope="col">Id</th> 
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prenom</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mot de passe</th>
-                    <th scope="col">Adresse</th>
-                    <th scope="col">Numero de téléphone</th>
-                    <th scope="col">Ville</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Banned</th>
+                    <th scope="col">Distination</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Date du randonnee</th>
+                    <th scope="col">Categorie</th>
                     <th scope="col">Modify</th>
                     <th scope="col">Delete</th>
-                    <th scope="col">Ban</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  foreach($listeUtilisateur as $utilisateur){
+                  foreach($listeRandonne as $randonne){
                   ?>
                   <tr>
-                    <td><?php echo $utilisateur['idu']; ?></td>
-                    <td><?php echo $utilisateur['nom']; ?></td>
-                    <td><?php echo $utilisateur['prenom']; ?></td>
-                    <td><?php echo $utilisateur['email']; ?></td>
-                    <td><?php echo $utilisateur['mdp']; ?></td>
-                    <td><?php echo $utilisateur['adresse']; ?></td>
-                    <td><?php echo $utilisateur['tel']; ?></td>
-                    <td><?php echo $utilisateur['ville']; ?></td>
-                    <td><?php echo $utilisateur['rolee']; ?></td>
-                    <td><?php echo $utilisateur['banned']; ?></td>
+                    <td><?php echo $randonne['id']; ?></td>
+                    <td><?php echo $randonne['destination']; ?></td>
+                    <td><?php echo $randonne['descriptiona']; ?></td>
+                    <td><?php echo $randonne['prix']; ?></td>
+                    <td><?php echo $randonne['datea']; ?></td>
+                    <td><?php echo $randonne['idc']; ?></td>
                     <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-folder"></i></button><div class="modal fade" id="verticalycentered" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Modify this user</h5>
+                      <h5 class="modal-title">Modifier randonnee</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <form method="post" action="">
-                      <input type="text" class="form-control" name="idu2" id="idu"  value="<?php echo $utilisateur['idu']; ?>" hidden>
+                      <input type="text" class="form-control" name="idu2" id="idu"  value="<?php echo $randonne['id']; ?>" hidden>
 
                         <div class="row mb-3">
-                          <label for="inputPassword" class="col-sm-2 col-form-label">Nom</label>
+                          <label for="inputPassword" class="col-sm-2 col-form-label">Destination</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nom2" id="nom"  value="<?php echo $utilisateur['nom']; ?>">
+                            <input type="text" class="form-control" name="destination1" id="destination1"  value="<?php echo $randonne['destination']; ?>">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Prenom</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Description</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="prenom2" id="prenom"  value="<?php echo $utilisateur['prenom']; ?>">
+                            <input type="text" class="form-control" name="descriptiona1" id="descriptiona1"  value="<?php echo $randonne['descriptiona']; ?>">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Email</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Prix</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control"  name="email2" id="email" value="<?php echo $utilisateur['email']; ?>">
+                            <input type="text" class="form-control"  name="prix1" id="prix1" value="<?php echo $randonne['prix']; ?>">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label" >Mot de passe</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label" >Date</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="mdp2" id="mdp"   value="<?php echo $utilisateur['mdp']; ?>">
+                            <input type="date"  name="datea1" id="datea1"   value="<?php echo $randonne['datea']; ?>">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Adresse</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Id du categorie</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="adresse2" id="adresse"   value="<?php echo $utilisateur['adresse']; ?>"> 
+                            <input type="text" class="form-control" name="idc1" id="idc1"   value="<?php echo $randonne['idc']; ?>"> 
                           </div>
                         </div>
 
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Numero de téléphone</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="tel2" id="tel"   value="<?php echo $utilisateur['tel']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Ville</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="ville2" id="ville"   value="<?php echo $utilisateur['ville']; ?>">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Role (1 si admin, sinon 0)</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="role2" id="role"   value="<?php echo $utilisateur['rolee']; ?>">
-                          </div>
-                        </div>
+                        
                          <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Submit Button</label>
+                         
                           <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary">Submit Form</button>
                           </div>
@@ -606,14 +590,14 @@ $error = "";
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                      
                     </div>
                   </div>
                 </div>
               </div></td>
 
-                   <td><a href="supprimerUser.php?idu=<?php echo $utilisateur['idu']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></button></td>
-                   <td><a href="banUser.php?idu=<?php echo $utilisateur['idu']; ?>" class="btn btn-warning" ><i class="bi bi-exclamation-octagon"></i></button></td>
+                   <td><a href="supprimerRandonnee.php?id=<?php echo $randonne['id']; ?>" class="btn btn-danger" ><i class="bi bi-exclamation-octagon"></i></button></td>
+    
                   </tr>
                   <?php
 				                }
@@ -622,57 +606,54 @@ $error = "";
               </table>
               <!-- End Table with stripped rows -->
               <button type="button" class="btn btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#verticalycentered1">
-                Add a user
+                Ajouter randonnée
               </button>
               <div class="modal fade" id="verticalycentered1" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Create a user</h5>
+                      <h5 class="modal-title">Creer randonne</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form method="post" action="">
+                      <form method="post" action="test.php">
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Nom</label>
+                          <label class="col-sm-2 col-form-label">Destination</label>
                           <div class="col-sm-10">
-                            <input type="text" name="nom" id="nom">
+                            <input type="text" name="destination" id="destination">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputPassword" class="col-sm-2 col-form-label">Prenom</label>
+                          <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="prenom" id="prenom">
+                            <input type="text" class="form-control" name="descriptiona" id="descriptiona">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Email</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Prix</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="email" id="email">
+                            <input type="text" class="form-control" name="prix" id="prix">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Mot de passe</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Date</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="mdp" id="pass">
+                            <input type="date" class="form-control" name="datea" id="datea">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Adresse</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">idc</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="adresse" id="adresse">
+                          <select name="idc" id="idc">
+                      <option value="1">randonnée national</option>
+                      <option value="2">randonnée international</option>
+                    </select>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Numero de telephone</label>
+                          <label for="inputNumber" class="col-sm-2 col-form-label">Image</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="tel" id="tel">
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputNumber" class="col-sm-2 col-form-label">Ville</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" name="tel" id="tel">
+                            <input type="file" class="form-control" name="image" id="image">
                           </div>
                         </div>
                         <div class="text-center p-t-20">
@@ -683,7 +664,7 @@ $error = "";
                          <div class="row mb-3">
                           <label class="col-sm-2 col-form-label"></label>
                           <div class="col-sm-10">
-                            <button type="submit" onclick="verif();" class="btn btn-primary">Create User</button>
+                            <button type="submit" class="btn btn-primary">Creer randonne</button>
                           </div>
                         </div>
         

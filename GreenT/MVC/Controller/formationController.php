@@ -90,20 +90,37 @@
 						titre= :titre, 
 						theme= :theme,
                         descp= :descp,
-                        etat= :etat
+                        etat= :etat,
+						likes =:likes
 					WHERE id= :id'
 				);
 				$query->execute([
-					
-					'titre' => $formation->getTitre(),
+					'titre' => $f0ormation->getTitre(),
 					'theme' => $formation->getTheme(),
                     'descp' => $formation->getDescp(),
                     'etat' => $formation->getEtat(),
+					'likes' => $formation->getLikes(),
 					'id' => $id
 				]);	
 				echo $query->rowCount() . " records UPDATED successfully <br>";
 			} catch (PDOException $e) {
 				var_dump($e->getMessage());
+			}
+		}
+		function likeFormation($id){
+			try {
+				$db = config::getConnexion();
+				$query = $db->prepare(
+					'UPDATE formation SET 
+						likes = likes + 1
+					WHERE id= :id'
+				);
+				$query->execute([
+					'id' => $id
+				]);	
+				echo $query->rowCount() . " records UPDATED successfully <br>";
+			} catch (PDOException $e) {
+				$e->getMessage();
 			}
 		}
 

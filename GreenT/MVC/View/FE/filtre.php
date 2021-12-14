@@ -1,13 +1,14 @@
-<?php 
-include '../../Controller/formationController.php';
-require_once '../../Model/formation.php';
-session_start();
-$formationC=new formationC();
-$listeFormation=$formationC->afficherFormation(); 
 
+<?php
+include '../../controller/randonnéea.php';
+include '../../controller/categoriea.php';
+$randonnéeaa = new randonnéea();
+$listerandonnée = $randonnéeaa->afficherrandonnée();
 
+$categorie=new categoriea();
+$listecategorie = $categorie->affichercategorie();
+	$listerandonnée = $randonnéeaa->tri();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,11 +16,11 @@ $listeFormation=$formationC->afficherFormation();
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Formations</title>
+  <title>Randonnée</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
+ 
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -48,44 +49,30 @@ $listeFormation=$formationC->afficherFormation();
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <!--<h1 class="text-light"><a href="index.html"><span>Moderna</span></a></h1>-->
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.php"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+
+        <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
-      <ul>
-          <li><a  href="index.php">Home</a></li>
-          <a  href="about.php">About</a>
-          <li><a href="team.php">Team</a></li>
-          <?php
-              if (isset($_SESSION['id'])) {
-                echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
-                  <ul>';
-                    if ($_SESSION['role'] == 1) {
-                      echo '<li><a href="../BE/index.html">Dashboard</a></li>';
-                    }
-                    echo '<li><a href="loginregis/modifier.php">Modifier votre profile</a></li>
-                    <li><a href="loginregis/logout.php">Log out</a></li>
-                  </ul>
-                </li>';
-              } else {
-                echo '<li class="dropdown"><a href="#"><span>Login or register</span> <i class="bi bi-chevron-down"></i></a>';
-                 echo '<ul><li><a href="loginregis/index.php">Log in</a></li>';
-                  echo'<li><a href="loginregis/register.php">Register</a></li></ul></li>';
-                  
-                
-              }
-              ?>
-          <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
+        <ul>
+          <li><a class="active " href="index.html">Home</a></li>
+          <a href="about.html">About</a>
+          <li><a href="team.html">Team</a></li>
+          <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a class="active" href="services.php">Les formations</a></li>
-              <li><a href="portfolio.php">Les randonnées</a></li>
-              <li><a href="blog.php">Les campagnes de propretés</a></li>
-              <li><a href="payer/index.php">Payer une don</a></li>
+              <li><a href="loginregis/index.html">Log in</a></li>
+              <li><a href="loginregis/register.html">Register</a></li>
             </ul>
           </li>
-          <li><a href="contact.php">Contact Us</a></li>
+          <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="services.html">Les formations</a></li>
+              <li><a href="portfolio.html">Les randonnées</a></li>
+              <li><a href="blog.html">Les campagnes de propretés</a></li>
+              <li><a href="payer/index.html">Payer une don</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact Us</a></li>
       </nav>
     </div>
   </header>
@@ -96,11 +83,11 @@ $listeFormation=$formationC->afficherFormation();
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Nos Formations: </h2>
+          <h2>Nos Randonnées : </h2>
 
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Formations</li>
+            <li>Randonnée</li>
           </ol>
         </div>
 
@@ -113,50 +100,48 @@ $listeFormation=$formationC->afficherFormation();
         <div class="row">
 
           <div class="col-lg-8 entries">
+   
           <?php
-                  foreach($listeFormation as $formation){
-                  ?>
-            <article class="entry">
+          
+          $bdd = new PDO ('mysql:host=localhost;dbname=greent', 'root','');
+          $query = $bdd->prepare("SELECT * FROM randonnéea where idc = ? ");
+          $query->execute(array($_GET['idc']));
+          while( $randonnée = $query->fetch()){
+        ?>
+                <article class="entry">
 
-              <div class="entry-img">
-                <img src="#" alt="" class="img-fluid">
-              </div>
+<div class="entry-img">
+  <img src="assets/img/photo/cmp1.jpg" alt="" class="img-fluid">
+</div>
 
-              <h2 class="entry-title"><?php echo $formation['titre']; ?></a>
-              </h2>
+<h2 class="entry-title">Nous organisons une Randonnée à <?php  echo $randonnée['destination'] ; ?> </a>
+</h2>
 
-              <div class="entry-meta">
-                <ul>
-                <?php
-                if ($formation['etat'] == 1) {
-                    echo '<li class="d-flex align-items-center"><i class="bi bi-check-lg"></i> <a href="blog-single.html">Free</a></li>';
-                } else if ($formation['etat'] == 2) {
-                    echo '<li class="d-flex align-items-center"><i class="bi bi-check2-circle"></i> <a href="blog-single.html">Amateur</a></li>';
-                } else if ($formation['etat'] == 3) {
-                    echo '<li class="d-flex align-items-center"><i class="bi bi-check2-square"></i> <a href="blog-single.html">Professional</a></li>';
-                }
-                ?>
-                <li class="d-flex align-items-center"><i class="bi bi-chat-left"></i> <a href="blog-single.html"><?php echo $formation['theme']; ?></a></li>
-                <li class="d-flex align-items-center"><i class="bi bi-hand-thumbs-up"></i><a href="likes.php?id=<?php echo $formation['id']; ?>"><?php echo $formation['likes']; ?>  </a></li>
-                </ul>
-              </div>
+<div class="entry-meta">
+  <ul>
+    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">Mohamed Amine Chtioui</a></li>
+    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">9 Aout, 2021</time></a></li>
+    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Commentaires</a></li>
+  </ul>
+</div>
 
-              <div class="entry-content">
-                <p>
-                <?php echo $formation['descp']; ?>
-                </p>
-                 
-                <div class="read-more">
-                  <a href="formation-single.php?titre=<?php echo $formation['titre']; ?>&theme=<?php echo $formation['theme']; ?>&etat=<?php echo $formation['etat']; ?>&descp=<?php echo $formation['descp']; ?>&id=<?php echo $formation['id']; ?>">Partir</a>
-                </div>
-              </div>
+<div class="entry-content">
+  <p>
+  <?php  echo $randonnée['descriptiona'] ; ?>
+  </p>
+  <div class="read-more">
+    <a href="blog-single.php?id=<?php echo $randonnée['id'];?>">Partir</a>
+  </div>
+</div>
 
-            </article>
-            <?php
-				                }
-		            	?>
+</article>
+                
 
-            
+
+<?php
+}
+
+?>
 
             <div class="blog-pagination">
               <ul class="justify-content-center">
@@ -171,22 +156,40 @@ $listeFormation=$formationC->afficherFormation();
           <div class="col-lg-4">
 
             <div class="sidebar">
-
-              <h3 class="sidebar-title">Recherche</h3>
+            
+             <h3 class="sidebar-title">Recherche</h3> 
               <div class="sidebar-item search-form">
-                <form action="">
-                  <input type="text">
-                  <button type="submit"><i class="bi bi-search"></i></button>
+                <form  method="post" action="recherche.php?destination=<?php echo $randonnée['destination'];?>">
+                  <input type="search" id="search" name="search" >
+              <button type="submit" name="submit"><i class="bi bi-search"></i></button>  
                 </form>
               </div><!-- End sidebar search formn-->
 
-              <h3 class="sidebar-title">Les formations</h3>
+              <h3 class="sidebar-title">Villes</h3>
               <div class="sidebar-item categories">
                 <ul>
-                  <li><a href="formationFree.php">Gratuit<span></span></a></li>
-                  <li><a href="formationPayante.php">Payé<span></span></a></li>
+                  <li><a href="#">Tunis <span></span></a></li>
+                  <li><a href="#">Bizerte <span></span></a></li>
+                  <li><a href="#">Sfax <span></span></a></li>
+                  <li><a href="#">Nabeul <span></span></a></li>
+                  <li><a href="#">Sousse <span></span></a></li>
+                  <li><a href="#">Monastir <span></span></a></li>
                 </ul>
-              </div><!-- End sidebar categories-->
+              </div>
+
+
+              <h3 class="sidebar-title">categories</h3>
+              <div class="sidebar-item categories">
+                <?php foreach($listecategorie as $categorie){ ?>
+                <ul>
+                  <li><a href="filtre.php?idc=<?php echo $categorie['idc'];?>"><?php echo $categorie['typec'];?></a></li>
+  
+                </ul>
+                <?php
+                }?>
+              </div>
+
+
 
               <h3 class="sidebar-title">Recent Posts</h3>
               <div class="sidebar-item recent-posts">
@@ -225,7 +228,7 @@ $listeFormation=$formationC->afficherFormation();
               <h3 class="sidebar-title">Tags</h3>
               <div class="sidebar-item tags">
                 <ul>
-                  <li><a href="#">Formations</a></li>
+                  <li><a href="#">Randonnée</a></li>
                   <li><a href="#">Ichkeul</a></li>
                   <li><a href="#">prix</a></li>
                 </ul>
@@ -242,19 +245,18 @@ $listeFormation=$formationC->afficherFormation();
 
   </main><!-- End #main -->
 
-   <!-- ======= Footer ======= -->
-   <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <!-- ======= Footer ======= -->
+  <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 
     <div class="footer-newsletter">
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <h4>Notre bulletin d'information</h4>
-            <p>Inscrivez-vous à notre newsletter pour recevoir les dernières mises à jour !</p>
+            <h4>Commentaires</h4>
           </div>
           <div class="col-lg-6">
             <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+              <input type="email" name="email"><input type="submit" value="Envoyer">
             </form>
           </div>
         </div>
@@ -268,42 +270,38 @@ $listeFormation=$formationC->afficherFormation();
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="index.html">Accueil</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="Terms and conditions.txt">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="Privacy Policy.txt">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Notre Services</h4>
+            <h4>Nos Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="services.html">Les formations</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="portfolio.html">Les randonnées</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="blog.html">Les campagnes de propretés</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="payer/index.html">Payer une don our financier un projet</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos Randonnées</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos formations</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos campagnes de propretés</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos projets</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
+            <h4>Nos Contacts </h4>
             <p>
-              1, 2 rue André Ampère<br>
-              2083 - Pôle Technologique<br>
-              El Ghazala. <br><br>
-              <strong>Phone:</strong> +216 25 019 058
-              <br>
-              <strong>Email:</strong> Defenders@esprit.tn
-
-              <br>
+              Esprit,  <br>
+              ariana soghra<br>
+              <strong>telephone:</strong>+72.345.612 <br>
+              <strong>Email:</strong> green.T@green.com<br>
             </p>
 
           </div>
 
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>À propos de Defenders</h3>
-            <p>Nous sommes une équipe d'étudiants dévoués qui cherchent à faire un changement dans le monde de la nature en Tunisie.</p>
+            <h3>GREEN-T</h3>
+            <p>Voulez-vous profiter et apprendre à connaitre de nouveaux endroits ? vivez l'experience avec GREEN-T</p>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -318,14 +316,14 @@ $listeFormation=$formationC->afficherFormation();
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Moderna</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>GREEN-T</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://bootstrapmade.com/">GREEN-T</a>
       </div>
     </div>
   </footer>

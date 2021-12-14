@@ -137,7 +137,8 @@ $listeFormation=$formationC->afficherFormationFree();
                 }
                 ?>
                 <li class="d-flex align-items-center"><i class="bi bi-chat-left"></i> <a href="blog-single.html"><?php echo $formation['theme']; ?></a></li>
-                </ul>
+                <li class="d-flex align-items-center"><i class="bi bi-hand-thumbs-up"></i><a href="likes.php?id=<?php echo $formation['id']; ?>"><?php echo $formation['likes']; ?>  </a></li>  
+              </ul>
               </div>
 
               <div class="entry-content">

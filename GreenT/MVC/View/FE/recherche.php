@@ -1,17 +1,44 @@
+
+
+
 <?php
-include '../../Controller/randonnéea.php';
-include '../../Controller/categoriea.php';
-session_start();
+
+$con = new PDO("mysql:host=localhost;dbname=greent",'root','');
+
+if (isset($_POST["search"])) {
+	$str = $_POST["search"];
+	$sth = $con->prepare("SELECT * FROM randonnéea WHERE destination like '$str%'");               
+	$sth->setFetchMode(PDO:: FETCH_OBJ);
+	$sth -> execute();
+
+
+		?>
+		<br><br><br>
+        <div class="bi bi-search">
+
+                                        
+         <div class="bi bi-search">  
+        
+       
+    </div>
+		
+<?php 
+	}
+		
+		
+	
+
+
+
+
+?>
+
+
+<?php
+include '../controller/randonnéea.php';
+
 $randonnéeaa = new randonnéea();
 $listerandonnée = $randonnéeaa->afficherrandonnée();
-
-$categorie=new categoriea();
-$listecategorie = $categorie->affichercategorie();
-if(isset($_POST['tri'])){
-	$listerandonnée = $randonnéeaa->tri();
-}
-  if(isset($_POST['trid'])){
-  $listerandonnée = $randonnéeaa->trid();}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,40 +132,121 @@ if(isset($_POST['tri'])){
 
           <div class="col-lg-8 entries">
    <?php
-	foreach($listerandonnée as $randonnée){
+   	while ($row = $sth->fetch())
+     {
+	if(!isset($_GET['idc']))
+	{
 	?>
             <article class="entry">
 
               <div class="entry-img">
-                <img src="uploads/<?php echo $randonnée['image'] ; ?>" alt="" class="img-fluid">
+                <img src="assets/img/photo/cmp1.jpg" alt="" class="img-fluid">
               </div>
 
-              <h2 class="entry-title">Nous organisons une Randonnée à <?php  echo $randonnée['destination'] ; ?> </a>
+              <h2 class="entry-title">Nous organisons une Randonnée à  <?php echo $row->destination;?> </a>
               </h2>
 
               <div class="entry-meta">
                 <ul>
                   <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">Mohamed Amine Chtioui</a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><?php echo $randonnée['datea'];?></a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">9 Aout, 2021</time></a></li>
                   <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Commentaires</a></li>
                 </ul>
               </div>
 
               <div class="entry-content">
                 <p>
-                <?php  echo $randonnée['descriptiona'] ; ?>
+                <?php echo $row->descriptiona;?>
                 </p>
                 <div class="read-more">
-                  <a href="portofolio-single.php?id=<?php echo $randonnée['id'];?>">Partir</a>
+                  <a href="blog-single.php?id=<?php echo $randonnée['id'];?>">Partir</a>
                 </div>
               </div>
 
             </article>
+<?php  }
+else {
+if($_GET['idc']==1){
+  foreach($listerandonnée as $randonnée){
+    $bdd = new PDO ('mysql:host=localhost;dbname=bb', 'root','');
+    $query = $bdd->prepare("SELECT * FROM randonnéea where idc = 1 and id=?");
+    $query->execute(array($randonnée['id']));
+    $res = $query->rowCount();
+    if($res != 0){ ?>
+      <article class="entry">
 
+      <div class="entry-img">
+        <img src="assets/img/photo/cmp1.jpg" alt="" class="img-fluid">
+      </div>
+
+      <h2 class="entry-title">Nous organisons une Randonnée à <?php  echo $randonnée['destination'] ; ?> </a>
+      </h2>
+
+      <div class="entry-meta">
+        <ul>
+          <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">Mohamed Amine Chtioui</a></li>
+          <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">9 Aout, 2021</time></a></li>
+          <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Commentaires</a></li>
+        </ul>
+      </div>
+
+      <div class="entry-content">
+        <p>
+        <?php  echo $randonnée['descriptiona'] ; ?>
+        </p>
+        <div class="read-more">
+          <a href="blog-single.php?id=<?php echo $randonnée['id'];?>">Partir</a>
+        </div>
+      </div>
+
+    </article>
+<?php
+    
+  }
+}
+
+}
+else if($_GET['idc']==2) { 
+foreach($listerandonnée as $randonnée){
+    $bdd = new PDO ('mysql:host=localhost;dbname=bb', 'root','');
+    $query = $bdd->prepare("SELECT * FROM randonnéea where idc = 2 and id=?");
+    $query->execute(array($randonnée['id']));
+    $res = $query->rowCount();
+    if($res != 0){ ?>
+      <article class="entry">
+
+      <div class="entry-img">
+        <img src="assets/img/photo/cmp1.jpg" alt="" class="img-fluid">
+      </div>
+
+      <h2 class="entry-title">Nous organisons une Randonnée à <?php  echo $randonnée['destination'] ; ?> </a>
+      </h2>
+
+      <div class="entry-meta">
+        <ul>
+          <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">Mohamed Amine Chtioui</a></li>
+          <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">9 Aout, 2021</time></a></li>
+          <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Commentaires</a></li>
+        </ul>
+      </div>
+
+      <div class="entry-content">
+        <p>
+        <?php  echo $randonnée['descriptiona'] ; ?>
+        </p>
+        <div class="read-more">
+          <a href="blog-single.php?id=<?php echo $randonnée['id'];?>">Partir</a>
+        </div>
+      </div>
+
+    </article>
 
 <?php
 }
-
+}
+}
+}
+}
 ?>
            
 
@@ -175,24 +283,15 @@ if(isset($_POST['tri'])){
                   <li><a href="#">Monastir <span></span></a></li>
                 </ul>
               </div>
-<form action="" method="POST">
-<h3>tri</h3>
 
-<div class="sidebar-item categories">
-<ul>
- <li><input type="submit" name="tri" value="tri par destination"></input></li>
- <li><input type="submit" name="trid" value="tri par date"></input></li>
-</ul> 
 
-<h3 class="sidebar-title">categories</h3>
+              <h3 class="sidebar-title">categories</h3>
               <div class="sidebar-item categories">
-                <?php foreach($listecategorie as $categorie){ ?>
                 <ul>
-                  <li><a href="filtre.php?idc=<?php echo $categorie['idc'];?>"><?php echo $categorie['typec'];?></a></li>
+                  <li><a href="portfolio.php?idc=1">randonnée national</a></li>
+                  <li><a href="portfolio.php?idc=2">randonnée international</a></li>
   
                 </ul>
-                <?php
-                }?>
               </div>
 
 
@@ -239,7 +338,7 @@ if(isset($_POST['tri'])){
                   <li><a href="#">prix</a></li>
                 </ul>
               </div><!-- End sidebar tags-->
-</form>
+
             </div><!-- End sidebar -->
 
           </div><!-- End blog sidebar -->

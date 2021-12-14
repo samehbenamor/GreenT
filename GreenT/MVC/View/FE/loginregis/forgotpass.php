@@ -9,7 +9,7 @@
 	$utilisateur = NULL;
 	$email = $_SESSION["email1"];
 	$utilisateur = $utilisateurC->recupererUtilisateurEmail($email);
-	$id = $utilisateur['idu'];
+	$idu = $utilisateur['idu'];
 	if (
 		isset($_POST["pass"]) &&		
         isset($_POST["repass"])
@@ -19,6 +19,7 @@
 			!empty($_POST["repass"]) 
 		) {
 			if ($_POST["pass"] == $_POST["repass"]) {
+				var_dump($_POST["pass"]);
 				$utilisateurC->ChangeMdpUtilisateur($idu, $_POST["repass"]);
 			}
 		}
@@ -61,7 +62,7 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>-->
 
-				<form class="login100-form validate-form" action="../index.php"  method="post" > 
+				<form class="login100-form validate-form" action=""  method="post" > 
 					<span style="color:white" class="login100-form-title">
 						Reset your password
 					</span>

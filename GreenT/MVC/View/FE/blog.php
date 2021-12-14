@@ -1,11 +1,14 @@
 <?php 
 include '../../Controller/evenementController.php';
 require_once '../../Model/evenement.php';
+include '../../Controller/materielController.php';
+require_once '../../Model/materiel.php'; 
 session_start();
 $evenementC=new evenementC();
 $listeEvenement=$evenementC->afficherEvenement(); 
+$materielC=new materielC();
 
-
+$materiel = NULL;
 ?>
 
 <!DOCTYPE html>
@@ -131,13 +134,24 @@ $listeEvenement=$evenementC->afficherEvenement();
                 <li class="d-flex align-items-center"><i class="fa fa-calendar"></i> <?php echo $evenement['dateeve']; ?></li>
                 </ul>
               </div>
-
+              <?php
+              $listeMateriel=$materielC->afficherMaterielBlog($evenement['id']);
+              ?>
               <div class="entry-content">
+              <p style="color:#00864a;">
+              <?php foreach ($listeMateriel as $materiel): ?>
+                <?php if ($materiel['post_id'] == $evenement['id']): ?>
+                Nom du materiel a apporter: <?php echo $materiel['nom']; ?>
+                <br>
+                Type du materiel a apporter: <?php echo $materiel['typem'];; ?>
+                <?php endif ?>
+              <?php endforeach ?>
+              </p>
                 <p>
                 <?php echo $evenement['descrip']; ?>
                 </p>
                 <div class="read-more">
-                  <a href="blog-single.php?titre=<?php echo $evenement['titre']; ?>&ville=<?php echo $evenement['ville']; ?>&dateeve=<?php echo $evenement['dateeve']; ?>&descrip=<?php echo $evenement['descrip']; ?>">Partir</a>
+                  <a href="blog-single.php?titre=<?php echo $evenement['titre']; ?>&ville=<?php echo $evenement['ville']; ?>&dateeve=<?php echo $evenement['dateeve']; ?>&descrip=<?php echo $evenement['descrip']; ?>&id=<?php echo $evenement['id']; ?>">Partir</a>
                 </div>
               </div>
 

@@ -353,6 +353,16 @@
               <i class="bi bi-circle"></i><span>Commentaires</span>
             </a>
           </li>
+          <li>
+            <a href="materiel.php">
+              <i class="bi bi-circle"></i><span>Materiel</span>
+            </a>
+          </li>
+          <li>
+            <a href="randonne.php">
+              <i class="bi bi-circle"></i><span>Randonées</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Tables Nav -->
       

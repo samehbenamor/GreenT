@@ -5,13 +5,15 @@
 		private $theme=null;
 		private $descp=null;
 		private $etat=null;
+		private $likes=null;
 		
-		function __construct(/*$idu, */$titre, $theme, $descp, $etat){
+		function __construct(/*$idu, */$titre, $theme, $descp, $etat, $likes){
 			//$this->idu=$idu;
 			$this->titre=$titre;
 			$this->theme=$theme;
             $this->descp=$descp;
             $this->etat=$etat;
+			$this->likes=$likes;
 		}
 		/*function getId(){
 			return $this->idu;
@@ -28,6 +30,9 @@
         function getEtat(){
 			return $this->etat;
 		}
+		function getLikes(){
+			return $this->likes;
+		}
 		
         //////////
 
@@ -43,6 +48,9 @@
 		}
         function setEtat(string $etat){
 			$this->etat=$etat;
+		}
+		function setLikes(string $likes){
+			$this->likes=$likes;
 		}
 	}
 

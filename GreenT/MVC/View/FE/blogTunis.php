@@ -1,10 +1,14 @@
 <?php 
 include '../../Controller/evenementController.php';
 require_once '../../Model/evenement.php';
+include '../../Controller/materielController.php';
+require_once '../../Model/materiel.php'; 
 session_start();
 $evenementC=new evenementC();
 $listeEvenement=$evenementC->afficherEvenementTunis(); 
-
+$materielC=new materielC();
+$listeMateriel=$materielC->afficherMaterielBlog($id);
+$materiel = NULL;
 
 ?>
 
@@ -133,6 +137,15 @@ $listeEvenement=$evenementC->afficherEvenementTunis();
               </div>
 
               <div class="entry-content">
+              <p style="color:#00864a;">
+              <?php foreach ($listeMateriel as $materiel): ?>
+                <?php if ($materiel['post_id'] == $evenement['id']): ?>
+                Nom du materiel a apporter: <?php echo $materiel['nom']; ?>
+                <br>
+                Type du materiel a apporter: <?php echo $materiel['typem'];; ?>
+                <?php endif ?>
+              <?php endforeach ?>
+              </p>
                 <p>
                 <?php echo $evenement['descrip']; ?>
                 </p>

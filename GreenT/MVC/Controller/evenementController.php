@@ -85,7 +85,7 @@
 				$query=$db->prepare($sql);
 				$query->execute();
 
-				$don=$query->fetch();
+				$evenement=$query->fetch();
 				return $evenement;
 			}
 			catch (Exception $e){

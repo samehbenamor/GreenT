@@ -183,16 +183,17 @@ if (
                     echo '<li class="d-flex align-items-center"><i class="bi bi-check2-square"></i> <a href="blog-single.html">Professional</a></li>';
                 }
                 ?>
+                
                 <li class="d-flex align-items-center"><i class="bi bi-chat-left"></i> <a href="blog-single.html"><?php echo $theme; ?></a></li>
-                </ul>
+                <li class="d-flex align-items-center"><i class="bi bi-hand-thumbs-up"></i><a href="likes.php?id=<?php echo $formation['id']; ?>"><?php echo $formation['likes']; ?>  </a></li>   
+              </ul>
               </div>
 
               <div class="entry-content">
                 <p>
                  <?php echo $description; ?>
                 </p>
-
-              
+                
                 <img src="#" class="img-fluid" alt="">
 
              
@@ -200,20 +201,7 @@ if (
     
             </article><!-- End blog entry -->
 
-            <div class="blog-author d-flex align-items-center">
-              <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
-              <div>
-                <h4>Jane Smith</h4>
-                <div class="social-links">
-                  <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
-                  <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
-                  <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
-                </div>
-                <p>
-                  Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
-                </p>
-              </div>
-            </div><!-- End blog author bio -->
+           
 
             <div class="blog-comments">
             <div class="reply-form">
@@ -271,36 +259,8 @@ if (
                 </form>
               </div><!-- End sidebar search formn-->
 
-              <h3 class="sidebar-title">Villes</h3>
-              <div class="sidebar-item categories">
-                <ul>
-                  <li><a href="#">Tunis <span></span></a></li>
-                  <li><a href="#">Bizerte <span></span></a></li>
-                  <li><a href="#">Sfax <span></span></a></li>
-                  <li><a href="#">Nabeul <span></span></a></li>
-                  <li><a href="#">Sousse <span></span></a></li>
-                  <li><a href="#">Monastir <span></span></a></li>
-                </ul>
-              </div><!-- End sidebar categories-->
-
              
-
-              <h3 class="sidebar-title">Tags</h3>
-              <div class="sidebar-item tags">
-                <ul>
-                  <li><a href="#">App</a></li>
-                  <li><a href="#">IT</a></li>
-                  <li><a href="#">Business</a></li>
-                  <li><a href="#">Mac</a></li>
-                  <li><a href="#">Design</a></li>
-                  <li><a href="#">Office</a></li>
-                  <li><a href="#">Creative</a></li>
-                  <li><a href="#">Studio</a></li>
-                  <li><a href="#">Smart</a></li>
-                  <li><a href="#">Tips</a></li>
-                  <li><a href="#">Marketing</a></li>
-                </ul>
-              </div><!-- End sidebar tags-->
+              
 
             </div><!-- End sidebar -->
 

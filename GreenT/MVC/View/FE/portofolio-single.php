@@ -1,46 +1,26 @@
-<?php 
-include '../../Controller/materielController.php';
-require_once '../../Model/materiel.php'; 
-include '../../Controller/evenementController.php';
-require_once '../../Model/evenement.php'; 
-session_start();
-$titre = $_GET["titre"];
-$ville = $_GET["ville"];
-$dateeve = $_GET["dateeve"];
-$descrip = $_GET["descrip"];
-$id = $_GET["id"];
+<?php
+include ("../../controller/randonnéea.php");
 
-$evenementC = new evenementC();
-
-$evenement = $evenementC->recupererEvenement($id);
-
-$materielC=new materielC();
-
-$listeMateriel=$materielC->afficherMaterielBlog($id);
-
-$materiel = NULL;
-
-
+$randonnéeaa = new randonnéea();
+$listerandonnée = $randonnéeaa->afficherrandonnée();
 ?>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title><?php echo $titre; ?></title>
+  <title>Randonnée</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
+ 
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
+  
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -67,34 +47,21 @@ $materiel = NULL;
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.php">Home</a></li>
-          <a href="about.php">About</a>
-          <li><a href="team.php">Team</a></li>
-          <?php
-              if (isset($_SESSION['id'])) {
-                echo '<li class="dropdown"><a href="#"><span>'.$_SESSION["name"].'</span> <i class="bi bi-chevron-down"></i></a>
-                  <ul>';
-                    if ($_SESSION['role'] == 1) {
-                      echo '<li><a href="../BE/index.html">Dashboard</a></li>';
-                    }
-                    echo '<li><a href="loginregis/modifier.php">Modifier votre profile</a></li>
-                    <li><a href="loginregis/logout.php">Log out</a></li>
-                  </ul>
-                </li>';
-              } else {
-                echo '<li class="dropdown"><a href="#"><span>Login or register</span> <i class="bi bi-chevron-down"></i></a>';
-                 echo '<ul><li><a href="loginregis/index.php">Log in</a></li>';
-                  echo'<li><a href="loginregis/register.php">Register</a></li></ul></li>';
-                  
-                
-              }
-              ?>
+          <li><a class="active " href="index.html">Home</a></li>
+          <a href="about.html">About</a>
+          <li><a href="team.html">Team</a></li>
+          <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="loginregis/index.html">Log in</a></li>
+              <li><a href="loginregis/register.html">Register</a></li>
+            </ul>
+          </li>
           <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="services.php">Les formations</a></li>
-              <li><a href="portfolio.php">Les randonnées</a></li>
-              <li><a href="blog.php">Les campagnes de propretés</a></li>
-              <li><a href="payer/index.php">Payer une don</a></li>
+              <li><a href="services.html">Les formations</a></li>
+              <li><a href="portfolio.html">Les randonnées</a></li>
+              <li><a href="blog.html">Les campagnes de propretés</a></li>
+              <li><a href="payer/index.html">Payer une don</a></li>
             </ul>
           </li>
           <li><a href="contact.html">Contact Us</a></li>
@@ -113,7 +80,7 @@ $materiel = NULL;
 
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li><a>Formation</a></li>
+            <li><a href="blog.html">Randonnée</a></li>
           </ol>
         </div>
 
@@ -127,46 +94,71 @@ $materiel = NULL;
         <div class="row">
 
           <div class="col-lg-8 entries">
-
+  <?php
+  $bdd = new PDO('mysql:host=localhost;dbname=greent;charset=utf8', 'root', '');
+  $selection = $bdd->prepare('SELECT * FROM randonnéea WHERE id = ?');
+  $selection->execute(array($_GET['id']));
+  $randonnée = $selection->fetch();
+	?>
             <article class="entry entry-single">
 
               <div class="entry-img">
-                <img src="#" alt="" class="img-fluid">
+                <img src="uploads/<?php echo $randonnée['image'] ; ?>" alt="" class="img-fluid">
               </div>
 
               <h2 class="entry-title">
-                <a href="blog-single.php"><?php echo $titre; ?></a>
+                <a href="blog-single.html">Nous organisons une Randonnée à <?php  echo $randonnée['destination'] ; ?> : </a>
               </h2>
 
               <div class="entry-meta">
                 <ul>
-                <li class="d-flex align-items-center"><i class="fa fa-map-marker"></i><?php echo $ville; ?></li>
-                <li class="d-flex align-items-center"><i class="fa fa-calendar"></i> <?php echo $dateeve; ?></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">Chtioui Mohamed Amine</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">9 Aout, 2021</time></a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
                 </ul>
               </div>
 
               <div class="entry-content">
-              <p style="color:#00864a;">
-              <?php foreach ($listeMateriel as $materiel): ?>
-                <?php if ($materiel['post_id'] == $evenement['id']): ?>
-                Nom du materiel a apporter: <?php echo $materiel['nom']; ?>
-                <br>
-                Type du materiel a apporter: <?php echo $materiel['typem'];; ?>
-                <?php endif ?>
-              <?php endforeach ?>
-              </p>
                 <p>
-                 <?php echo $descrip; ?>
+                <?php  echo $randonnée['descriptiona'] ; ?>
+                  
                 </p>
 
-              
-                <img src="#" class="img-fluid" alt="">
+
+
+        
+                </blockquote>
+
+          
+
+  
 
              
 
-    
+              <div class="entry-footer">
+                <i class="bi bi-folder"></i>
+                <ul class="cats">
+                  <li><a href="#">Business</a></li>
+                </ul>
+
+                <i class="bi bi-tags"></i>
+                <ul class="tags">
+                  <li><a href="#">Creative</a></li>
+                  <li><a href="#">Tips</a></li>
+                  <li><a href="#">Marketing</a></li>
+                </ul>
+              </div>
+              <br>
+              <br>
+              
+               <a href="payer.php"  class="btn btn-primary">Payer</a>
             </article><!-- End blog entry -->
 
+   
+
+              </form>
+
+            </div>
             <div class="blog-author d-flex align-items-center">
               <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
               <div>
@@ -275,33 +267,6 @@ $materiel = NULL;
 
               </div><!-- End comment #4 -->
 
-              <div class="reply-form">
-                <h4>Leave a Reply</h4>
-                <p>Your email address will not be published. Required fields are marked * </p>
-                <form action="">
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                      <input name="name" type="text" class="form-control" placeholder="Your Name*">
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <input name="email" type="text" class="form-control" placeholder="Your Email*">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col form-group">
-                      <input name="website" type="text" class="form-control" placeholder="Your Website">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col form-group">
-                      <textarea name="comment" class="form-control" placeholder="Your Comment*"></textarea>
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Post Comment</button>
-
-                </form>
-
-              </div>
 
             </div><!-- End blog comments -->
 
@@ -329,26 +294,27 @@ $materiel = NULL;
                   <li><a href="#">Sousse <span></span></a></li>
                   <li><a href="#">Monastir <span></span></a></li>
                 </ul>
-              </div><!-- End sidebar categories-->
+              </div>
 
+              <h3 class="sidebar-title">categories</h3>
+              <div class="sidebar-item categories">
+                <ul>
+                  <li><a href="#">randonnée national<span>(13) </span></a></li>
+                  <li><a href="#">randonnée international<span> (2)</span></a></li>
+  
+                </ul>
+              </div>
              
 
               <h3 class="sidebar-title">Tags</h3>
               <div class="sidebar-item tags">
                 <ul>
-                  <li><a href="#">App</a></li>
-                  <li><a href="#">IT</a></li>
-                  <li><a href="#">Business</a></li>
-                  <li><a href="#">Mac</a></li>
-                  <li><a href="#">Design</a></li>
-                  <li><a href="#">Office</a></li>
-                  <li><a href="#">Creative</a></li>
-                  <li><a href="#">Studio</a></li>
-                  <li><a href="#">Smart</a></li>
-                  <li><a href="#">Tips</a></li>
-                  <li><a href="#">Marketing</a></li>
+                  <li><a href="#">Randonnée</a></li>
+                  <li><a href="#">Ichkeul</a></li>
+                  <li><a href="#">prix</a></li>
                 </ul>
               </div><!-- End sidebar tags-->
+
 
             </div><!-- End sidebar -->
 
@@ -357,23 +323,22 @@ $materiel = NULL;
         </div>
 
       </div>
-    </section><!-- End Blog Single Section -->
+    </section>
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
+
   <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 
     <div class="footer-newsletter">
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <h4>Notre bulletin d'information</h4>
-            <p>Inscrivez-vous à notre newsletter pour recevoir les dernières mises à jour !</p>
+            <h4>Commentaires</h4>
           </div>
           <div class="col-lg-6">
             <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+              <input type="email" name="email"><input type="submit" value="Envoyer">
             </form>
           </div>
         </div>
@@ -387,42 +352,38 @@ $materiel = NULL;
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="index.html">Accueil</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="Terms and conditions.txt">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="Privacy Policy.txt">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Notre Services</h4>
+            <h4>Nos Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="services.html">Les formations</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="portfolio.html">Les randonnées</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="blog.html">Les campagnes de propretés</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="payer/index.html">Payer une don our financier un projet</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos Randonnées</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos formations</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos campagnes de propretés</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Nos projets</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
+            <h4>Nos Contacts </h4>
             <p>
-              1, 2 rue André Ampère<br>
-              2083 - Pôle Technologique<br>
-              El Ghazala. <br><br>
-              <strong>Phone:</strong> +216 25 019 058
-              <br>
-              <strong>Email:</strong> Defenders@esprit.tn
-
-              <br>
+              Esprit,  <br>
+              ariana soghra<br>
+              <strong>telephone:</strong>+72.345.612 <br>
+              <strong>Email:</strong> green.T@green.com<br>
             </p>
 
           </div>
 
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>À propos de Defenders</h3>
-            <p>Nous sommes une équipe d'étudiants dévoués qui cherchent à faire un changement dans le monde de la nature en Tunisie.</p>
+            <h3>GREEN-T</h3>
+            <p>Voulez-vous profiter et apprendre à connaitre de nouveaux endroits ? vivez l'experience avec GREEN-T</p>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -437,14 +398,14 @@ $materiel = NULL;
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Moderna</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>GREEN-T</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://bootstrapmade.com/">GREEN-T</a>
       </div>
     </div>
   </footer><!-- End Footer -->
